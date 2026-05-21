@@ -1,0 +1,104 @@
+<!--pages/report/report.wxml-->
+<view class="container">
+  <!-- 报告头部 -->
+  <view class="report-header">
+    <view class="report-title">情绪报告</view>
+    <view class="report-date">{{rangeStart}} - {{rangeEnd}}</view>
+  </view>
+
+  <!-- 有数据 -->
+  <view wx:if="{{hasData}}">
+    <!-- 情绪占比 -->
+    <view class="card chart-card">
+      <view class="card-title">情绪占比</view>
+      <view class="emotion-legend">
+        <view wx:for="{{emotionStats}}" wx:key="key" class="legend-row">
+          <view class="legend-color" style="background: {{item.color}}"></view>
+          <view class="legend-label">{{item.icon}} {{item.label}}</view>
+          <view class="legend-count">{{item.count}}次</view>
+          <view class="legend-percent">{{item.percent}}%</view>
+        </view>
+      </view>
+      <!-- 简易条形图 -->
+      <view class="bar-chart">
+        <view wx:for="{{emotionStats}}" wx:key="key" class="bar-row">
+          <view class="bar-label">{{item.icon}}</view>
+          <view class="bar-track">
+            <view class="bar-fill" style="width: {{item.percent}}%; background: {{item.color}}"></view>
+          </view>
+          <view class="bar-value">{{item.percent}}%</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 情绪趋势 -->
+    <view class="card">
+      <view class="card-title">情绪趋势</view>
+      <view class="trend-list">
+        <view wx:for="{{dailyTrends}}" wx:key="date" class="trend-item">
+          <view class="trend-date">{{item.day}}</view>
+          <view class="trend-dot {{item.score >= 1 ? 'positive' : item.score <= -1 ? 'negative' : 'neutral'}}">
+            {{item.icon}}
+          </view>
+          <view class="trend-score">{{item.score > 0 ? '+' : ''}}{{item.score}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 数据摘要 -->
+    <view class="card summary-card">
+      <view class="summary-item">
+        <view class="summary-label">最常情绪</view>
+        <view class="summary-value">{{mostCommon.icon}} {{mostCommon.label}}</view>
+      </view>
+      <view class="summary-item">
+        <view class="summary-label">情绪稳定性</view>
+        <view class="summary-value {{stabilityScore >= 70 ? 'good' : 'normal'}}">
+          {{stabilityScore}}分
+        </view>
+      </view>
+      <view class="summary-item">
+        <view class="summary-label">记录天数</view>
+        <view class="summary-value">{{recordDays}}天</view>
+      </view>
+    </view>
+
+    <!-- AI 报告 -->
+    <view class="card ai-card" wx:if="{{canUseAI}}">
+      <view class="card-title">
+        <text class="ai-title-icon">🤖</text> AI 情绪洞察
+      </view>
+      
+      <!-- 加载中 -->
+      <view wx:if="{{aiReportLoading}}" class="ai-loading">
+        <view class="loading-dots">
+          <view class="dot"></view>
+          <view class="dot"></view>
+          <view class="dot"></view>
+        </view>
+        <view class="loading-text">AI 正在分析你的情绪数据...</view>
+      </view>
+      
+      <!-- 报告内容 -->
+      <view wx:elif="{{aiReport}}" class="ai-report-content">
+        <text>{{aiReport}}</text>
+        <view class="ai-refresh" bindtap="regenerateReport">🔄 换一份报告</view>
+      </view>
+      
+      <!-- 生成失败 -->
+      <view wx:else class="ai-fail">
+        <text>AI 报告生成失败，请稍后重试</text>
+        <view class="ai-refresh" bindtap="regenerateReport">🔄 重试</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 无数据 -->
+  <view wx:else class="empty-state">
+    <view class="empty-icon">📊</view>
+    <view class="empty-title">还没有数据</view>
+    <view class="empty-desc">记录2天以上的情绪即可查看报告</view>
+  </view>
+
+  <view class="nav-placeholder"></view>
+</view>

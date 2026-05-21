@@ -1,0 +1,278 @@
+/* pages/report/report.wxss */
+
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 30rpx;
+  padding-bottom: 120rpx;
+}
+
+.report-header {
+  margin-bottom: 30rpx;
+}
+
+.report-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.report-date {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+/* 卡片 */
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.ai-title-icon { font-size: 32rpx; }
+
+/* 图例 */
+.emotion-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 24rpx;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  width: 48%;
+  padding: 8rpx 0;
+}
+
+.legend-color {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 6rpx;
+  margin-right: 10rpx;
+}
+
+.legend-label {
+  flex: 1;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.legend-count {
+  font-size: 22rpx;
+  color: #999;
+  margin-right: 8rpx;
+}
+
+.legend-percent {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 条形图 */
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.bar-label {
+  font-size: 28rpx;
+  width: 50rpx;
+  text-align: center;
+}
+
+.bar-track {
+  flex: 1;
+  height: 16rpx;
+  background: #f0f0f0;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 8rpx;
+  transition: width 0.5s ease;
+}
+
+.bar-value {
+  font-size: 22rpx;
+  color: #666;
+  width: 60rpx;
+  text-align: right;
+}
+
+/* 趋势 */
+.trend-list {
+  display: flex;
+  justify-content: space-around;
+  padding: 20rpx 0;
+}
+
+.trend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.trend-date {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.trend-dot {
+  font-size: 44rpx;
+  padding: 8rpx;
+  border-radius: 16rpx;
+}
+
+.trend-dot.positive { background: #E8F5E9; }
+.trend-dot.negative { background: #FFF3E0; }
+.trend-dot.neutral { background: #FFFDE7; }
+
+.trend-score {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 摘要 */
+.summary-card {
+  display: flex;
+  gap: 20rpx;
+}
+
+.summary-item {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+}
+
+.summary-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.summary-value {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.summary-value.good { color: #4CAF50; }
+.summary-value.normal { color: #FF9800; }
+
+/* AI 报告卡片 */
+.ai-card {
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  border: 2rpx solid #ddd6fe;
+}
+
+.ai-report-content {
+  font-size: 28rpx;
+  line-height: 1.8;
+  color: #444;
+  white-space: pre-wrap;
+}
+
+.ai-refresh {
+  display: inline-block;
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  color: #667eea;
+  padding: 8rpx 20rpx;
+}
+
+.ai-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #667eea;
+  animation: bounce 1.4s infinite both;
+}
+
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.16s; }
+.dot:nth-child(3) { animation-delay: 0.32s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+.loading-text {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.ai-fail {
+  text-align: center;
+  padding: 20rpx;
+  font-size: 26rpx;
+  color: #999;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.empty-icon {
+  font-size: 150rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16rpx;
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.nav-placeholder { height: 120rpx; }

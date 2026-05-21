@@ -1,0 +1,135 @@
+/* app.wxss */
+page {
+  background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.container {
+  padding: 30rpx;
+}
+
+/* 通用按钮样式 */
+.btn-primary {
+  background-color: #4CAF50;
+  color: #ffffff;
+  border-radius: 50rpx;
+  padding: 20rpx 60rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.btn-primary:active {
+  opacity: 0.8;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+/* 弹性列表 */
+.emotion-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20rpx;
+}
+
+.emotion-item {
+  width: 120rpx;
+  height: 120rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20rpx;
+  background-color: #f5f5f5;
+  transition: all 0.2s ease;
+}
+
+.emotion-item.selected {
+  transform: scale(1.1);
+  box-shadow: 0 4rpx 20rpx rgba(76, 175, 80, 0.3);
+}
+
+.emotion-icon {
+  font-size: 50rpx;
+  line-height: 1;
+}
+
+.emotion-label {
+  font-size: 20rpx;
+  color: #666666;
+  margin-top: 8rpx;
+}
+
+/* Toast 提示 */
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  padding: 20rpx 40rpx;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  z-index: 9999;
+  animations: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999999;
+}
+
+.empty-state .icon {
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-state .text {
+  font-size: 28rpx;
+}
+
+/* 加载中 */
+.loading {
+  text-align: center;
+  padding: 50rpx;
+  color: #999999;
+}
+
+/* 分隔线 */
+.divider {
+  height: 1rpx;
+  background-color: #eeeeee;
+  margin: 30rpx 0;
+}
+
+/* 徽章样式 */
+.badge {
+  display: inline-block;
+  padding: 6rpx 16rpx;
+  font-size: 22rpx;
+  border-radius: 20rpx;
+  background-color: #f5f5f5;
+  color: #666666;
+}
+
+.badge-active {
+  background-color: #FFF8E1;
+  color: #FF9800;
+}

@@ -1,0 +1,120 @@
+<!--pages/profile/profile.wxml-->
+<view class="container">
+  <!-- 用户信息 -->
+  <view class="user-card">
+    <view class="user-avatar">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <open-data type="userNickName" class="user-nickname"></open-data>
+  </view>
+
+  <!-- 数据统计 -->
+  <view class="stats-card">
+    <view class="stat-item">
+      <view class="stat-value">{{stats.streak}}</view>
+      <view class="stat-label">连续打卡</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <view class="stat-value">{{stats.total_records}}</view>
+      <view class="stat-label">总记录</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <view class="stat-value">{{stats.max_streak}}</view>
+      <view class="stat-label">最高记录</view>
+    </view>
+  </view>
+
+  <!-- 成就徽章 -->
+  <view class="section">
+    <view class="section-title">🏆 成就徽章</view>
+    <view class="badges-grid">
+      <view 
+        wx:for="{{badges}}" 
+        wx:key="key" 
+        class="badge-item {{item.unlocked ? 'unlocked' : ''}}"
+      >
+        <view class="badge-icon">{{item.icon}}</view>
+        <view class="badge-label">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="section menu-section">
+    <view class="menu-item" bindtap="onMenuTap" data-menu="emoji">
+      <text>🎨 自定义情绪图标</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="onMenuTap" data-menu="export">
+      <text>📥 导出数据</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="onMenuTap" data-menu="privacy">
+      <text>📄 隐私政策</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item danger" bindtap="onMenuTap" data-menu="clear">
+      <text>🗑️ 清空数据</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 自定义情绪图标 - 弹窗 -->
+  <view class="emoji-modal {{showEmojiEditor ? 'show' : ''}}" bindtap="closeEmojiEditor">
+    <view class="emoji-modal-content" catchtap="stopPropagation">
+      <view class="emoji-modal-title">🎨 自定义情绪图标</view>
+      <view class="emoji-modal-desc">点击图标可以修改，支持 emoji 或上传图片</view>
+      
+      <view class="emotion-custom-list">
+        <view 
+          wx:for="{{emotions}}" 
+          wx:key="key"
+          class="emotion-custom-item"
+        >
+          <!-- 图标预览 -->
+          <view class="emotion-preview" bindtap="startEditEmotion" data-key="{{item.key}}">
+            <block wx:if="{{customEmotions[item.key].type === 'image'}}">
+              <image 
+                class="emotion-preview-img" 
+                src="{{customEmotions[item.key].value}}" 
+                mode="aspectFit"
+              ></image>
+            </block>
+            <block wx:else>
+              <text class="emotion-preview-emoji">{{customEmotions[item.key].value || item.icon}}</text>
+            </block>
+          </view>
+          
+          <!-- 标签 + 重置 -->
+          <view class="emotion-custom-info">
+            <view class="emotion-custom-label">{{item.label}}</view>
+            <view 
+              wx:if="{{customEmotions[item.key]}}" 
+              class="emotion-reset-btn" 
+              catchtap="resetEmotion" 
+              data-key="{{item.key}}"
+            >恢复默认</view>
+          </view>
+          
+          <!-- 编辑面板 -->
+          <view class="emotion-edit-panel" wx:if="{{editingEmotion === item.key}}">
+            <view class="edit-row">
+              <input 
+                class="edit-emoji-input" 
+                placeholder="输入emoji或文字" 
+                value="{{editPreview}}" 
+                bindinput="onPreviewInput"
+                maxlength="4"
+              />
+              <view class="edit-save-btn" bindtap="setEmoji">确定</view>
+            </view>
+            <view class="edit-divider-text">或</view>
+            <view class="edit-upload-btn" bindtap="chooseImage">📷 上传图片</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

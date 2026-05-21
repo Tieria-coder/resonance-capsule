@@ -1,0 +1,99 @@
+<!--pages/calendar/calendar.wxml-->
+<view class="container">
+  <!-- 月份切换 -->
+  <view class="month-header">
+    <view class="month-btn" bindtap="prevMonth">
+      <text class="arrow">‹</text>
+    </view>
+    <view class="month-title">{{year}}年{{month}}月</view>
+    <view class="month-btn" bindtap="nextMonth">
+      <text class="arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 日历网格 -->
+  <view class="calendar-grid">
+    <!-- 星期标题 -->
+    <view class="weekday-row">
+      <view class="weekday" wx:for="{{weekdays}}" wx:key="*this">{{item}}</view>
+    </view>
+    
+    <!-- 日期格子 -->
+    <view class="days-container">
+      <view 
+        wx:for="{{days}}" 
+        wx:key="index"
+        wx:if="{{item.isCurrentMonth}}"
+        class="day-cell {{item.hasRecord ? 'has-record' : ''}} {{item.isToday ? 'today' : ''}}"
+        bindtap="onDayTap"
+        data-date="{{item.dateStr}}"
+      >
+        <view class="day-number">{{item.day}}</view>
+        <view class="day-emotion" wx:if="{{item.hasRecord}}">{{item.emotionIcon}}</view>
+        <view class="day-dot" wx:else></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 本月统计 -->
+  <view class="month-stats">
+    <text>本月记录 {{monthStats.days}} 天</text>
+  </view>
+
+  <!-- 底部说明 -->
+  <view class="calendar-tips">
+    <view class="tips-title">图例说明</view>
+    <view class="tips-legend">
+      <view class="legend-item">
+        <text class="legend-icon">😊</text>
+        <text>兴奋</text>
+      </view>
+      <view class="legend-item">
+        <text class="legend-icon">😌</text>
+        <text>愉快</text>
+      </view>
+      <view class="legend-item">
+        <text class="legend-icon">😐</text>
+        <text>平静</text>
+      </view>
+      <view class="legend-item">
+        <text class="legend-icon">😔</text>
+        <text>低落</text>
+      </view>
+      <view class="legend-item">
+        <text class="legend-icon">😢</text>
+        <text>伤心</text>
+      </view>
+      <view class="legend-item">
+        <text class="legend-icon">😴</text>
+        <text>疲惫</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 日期详情弹窗 -->
+<view class="day-modal {{showDayModal ? 'show' : ''}}" bindtap="closeDayModal">
+  <view class="modal-content" catchtap="stopPropagation">
+    <view class="modal-header">
+      <view class="modal-title">{{selectedDateStr}}</view>
+      <view class="modal-close" bindtap="closeDayModal">×</view>
+    </view>
+    
+    <view class="day-records" wx:if="{{selectedDayRecords.length > 0}}">
+      <view 
+        wx:for="{{selectedDayRecords}}" 
+        wx:key="_id"
+        class="record-row"
+      >
+        <view class="record-time">{{item.period_icon}} {{item.period_label}} {{item.formatted_time}}</view>
+        <view class="record-emotion">{{item.emotion_icon}} {{item.emotion_label}}</view>
+        <view class="record-text" wx:if="{{item.text}}">{{item.text}}</view>
+      </view>
+    </view>
+    
+    <view class="empty-day" wx:else>
+      <text>这一天没有记录</text>
+    </view>
+  </view>
+</view>
