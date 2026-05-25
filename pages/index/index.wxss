@@ -31,6 +31,20 @@
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* 记录按钮点击弹跳 */
+@keyframes recordBounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.92); }
+  60% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* 子情绪选中波纹 */
+@keyframes ripple {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
 @keyframes popSelect {
   0% { transform: scale(1); }
   50% { transform: scale(1.15); }
@@ -307,10 +321,7 @@
 }
 
 .record-btn:active {
-  background: linear-gradient(145deg, #f0f0f0, #e8e8e8);
-  transform: scale(0.97);
-  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06), inset 0 2rpx 6rpx rgba(0,0,0,0.05);
-  transition: all 0.1s ease-in;
+  animation: recordBounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 .record-btn.selected {
@@ -781,6 +792,27 @@
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: subEmotionPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 波纹效果 */
+.sub-emotion-item::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(51,51,51,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sub-emotion-item.selected::after {
+  animation: ripple 0.5s ease-out forwards;
 }
 
 /* 子情绪依次出现 */
@@ -1348,23 +1380,32 @@
   transform: translate(-50%, -50%);
   background: rgba(26,26,26,0.85);
   color: #fff;
-  padding: 24rpx 48rpx;
+  padding: 20rpx 40rpx;
   border-radius: 16rpx;
   font-size: 28rpx;
   z-index: 9999;
   animation: toastBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   backdrop-filter: blur(20rpx);
   border: 1rpx solid rgba(255,255,255,0.9);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
 }
 
 .toast-icon {
-  text-align: center;
-  font-size: 40rpx;
-  margin-bottom: 8rpx;
+  width: 36rpx;
+  height: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .toast-text {
   text-align: center;
+  line-height: 1.4;
 }
 /* ═══ 三行布局：行基础样式 ═══ */
 .category-row {

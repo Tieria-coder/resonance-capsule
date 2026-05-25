@@ -28,12 +28,17 @@
           <view class="dot"></view>
           <view class="dot"></view>
         </view>
-        <view class="loading-text">AI 正在分析你的情绪数据...</view>
+        <view class="loading-text">{{loadingTexts[loadingTextIndex]}}</view>
       </view>
       
       <!-- 报告内容 -->
       <view wx:elif="{{aiReport}}" class="ai-report-content">
         <text>{{aiReport}}</text>
+      </view>
+
+      <!-- 关键词云 -->
+      <view wx:if="{{keywords.length > 0}}" class="keywords-cloud">
+        <view wx:for="{{keywords}}" wx:key="*this" class="keyword-tag">{{item}}</view>
       </view>
 
       <!-- 生成失败 -->

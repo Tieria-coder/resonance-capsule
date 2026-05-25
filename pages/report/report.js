@@ -28,6 +28,15 @@ Page({
     aiReportLoading: false,
     canUseAI: false,
     records: [],
+    keywords: [],
+    loadingTextIndex: 0,
+    loadingTexts: [
+      'AI 正在分析你的情绪数据...',
+      '正在捕捉情绪的微妙变化...',
+      '数据正在汇聚成洞察...',
+      '情绪图景正在浮现...',
+      '马上就好，让心灵说话...'
+    ],
   },
 
   onLoad() {
@@ -54,6 +63,10 @@ Page({
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setActive(2)
     }
+  },
+
+  onUnload() {
+    if (this._loadingTimer) clearInterval(this._loadingTimer)
   },
 
   // 初始化时间范围
@@ -237,7 +250,13 @@ Page({
   // 生成 AI 报告
   generateAIReport: function (records) {
     var that = this
-    that.setData({ aiReportLoading: true })
+    that.setData({ aiReportLoading: true, loadingTextIndex: 0 })
+
+    // 动态文案轮播
+    that._loadingTimer = setInterval(function () {
+      var next = (that.data.loadingTextIndex + 1) % that.data.loadingTexts.length
+      that.setData({ loadingTextIndex: next })
+    }, 2000)
 
     var recordsForAI = records.map(function (r) {
       var info = util.getEmotionByKey(r.emotion)
@@ -257,10 +276,13 @@ Page({
         rangeLabel: that.data.rangeLabel,
       }
     }).then(function (res) {
+      clearInterval(that._loadingTimer)
       var report = (res.result && res.result.report) || ''
+      var keywords = that.extractKeywords(report)
       that.setData({
         aiReport: report,
         aiReportLoading: false,
+        keywords: keywords,
       })
       // 存到数据库
       var userId = that.data.userId
@@ -270,6 +292,7 @@ Page({
         })
       }
     }).catch(function (err) {
+      clearInterval(that._loadingTimer)
       console.error('AI\u62A5\u544A\u751F\u6210\u5931\u8D25:', err)
       that.setData({ aiReportLoading: false })
     })
@@ -284,9 +307,11 @@ Page({
     db.getLatestReport(userId, that.data.rangeLabel).then(function (reportDoc) {
       if (reportDoc && reportDoc.report_content) {
         // 数据库有报告，直接显示
+        var keywords = that.extractKeywords(reportDoc.report_content)
         that.setData({
           aiReport: reportDoc.report_content,
           aiReportLoading: false,
+          keywords: keywords,
         })
       } else {
         // 没有历史报告，生成新报告
@@ -311,6 +336,26 @@ Page({
       }).catch(function () {})
     }
     that.loadReportData()
+  },
+
+  // 从报告文本中提取关键词
+  extractKeywords: function (text) {
+    if (!text || text.length < 10) return []
+    // 情绪相关关键词
+    var emotionWords = [
+      '焦虑', '平静', '快乐', '悲伤', '愤怒', '恐惧', '惊喜', '困惑', '满足',
+      '压力', '放松', '焦虑', '开心', '难过', '生气', '害怕', '期待', '迷茫', '充实',
+      '疲惫', '精力充沛', '孤独', '温暖', '安全感', '不安', '自信', '紧张', '轻松',
+      '情绪', '心情', '感受', '思考', '成长', '变化', '趋势', '波动', '稳定'
+    ]
+    var found = []
+    emotionWords.forEach(function (word) {
+      if (text.includes(word) && !found.includes(word)) {
+        found.push(word)
+      }
+    })
+    // 最多返回 8 个
+    return found.slice(0, 8)
   },
 
   // ─── 基于报告寻求建议 ───

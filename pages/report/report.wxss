@@ -344,3 +344,31 @@
 }
 
 .nav-placeholder { height: 120rpx; }
+
+/* ¨T¨T¨T ¹Ø¼ü´ÊÔÆ ¨T¨T¨T */
+.keywords-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid rgba(0,0,0,0.06);
+}
+
+.keyword-tag {
+  padding: 8rpx 20rpx;
+  background: rgba(0,0,0,0.04);
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: #333;
+  border: 1rpx solid rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+}
+
+.keyword-tag:nth-child(odd) {
+  background: rgba(0,0,0,0.06);
+}
+
+.keyword-tag:nth-child(3n) {
+  font-weight: 500;
+}
