@@ -104,20 +104,24 @@ var EMOTIONS = EMOTION_CATEGORIES.map(function (cat) {
   }
 })
 
-// 时段定义（4个时段）
+// 时段定义（6个时段）
 var PERIODS = [
-  { key: 'morning', label: '上午', icon: '☀️' },
-  { key: 'afternoon', label: '下午', icon: '🌤️' },
-  { key: 'evening', label: '傍晚', icon: '🌆' },
-  { key: 'night', label: '深夜', icon: '🌙' },
+  { key: 'dawn',     label: '早晨', icon: '🌅' },
+  { key: 'forenoon', label: '上午', icon: '🌤️' },
+  { key: 'noon',     label: '中午', icon: '☀️' },
+  { key: 'afternoon',label: '下午', icon: '🌇' },
+  { key: 'evening',  label: '晚上', icon: '🌆' },
+  { key: 'night',    label: '深夜', icon: '🌙' },
 ]
 
 function getPeriodByTime(time) {
   var hour = time.getHours()
-  if (hour >= 6 && hour < 12) return PERIODS[0]
-  if (hour >= 12 && hour < 18) return PERIODS[1]
-  if (hour >= 18 && hour < 21) return PERIODS[2]
-  return PERIODS[3]
+  if (hour >= 6 && hour < 9)  return PERIODS[0]   // 早晨 6-9
+  if (hour >= 9 && hour < 12) return PERIODS[1]   // 上午 9-12
+  if (hour >= 12 && hour < 14) return PERIODS[2]  // 中午 12-14
+  if (hour >= 14 && hour < 18) return PERIODS[3]  // 下午 14-18
+  if (hour >= 18 && hour < 21) return PERIODS[4]  // 晚上 18-21
+  return PERIODS[5]                              // 深夜 21-6
 }
 
 function getEmotionByKey(key) {
