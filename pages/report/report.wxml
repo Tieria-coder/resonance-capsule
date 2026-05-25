@@ -6,8 +6,43 @@
     <view class="report-date">{{rangeStart}} - {{rangeEnd}}</view>
   </view>
 
+  <!-- 时间范围选择 -->
+  <view class="range-tabs">
+    <view class="range-tab {{rangeDays === 1 ? 'active' : ''}}" bindtap="switchRange" data-days="1">日报</view>
+    <view class="range-tab {{rangeDays === 7 ? 'active' : ''}}" bindtap="switchRange" data-days="7">周报</view>
+    <view class="range-tab {{rangeDays === 30 ? 'active' : ''}}" bindtap="switchRange" data-days="30">月报</view>
+  </view>
+
   <!-- 有数据 -->
   <view wx:if="{{hasData}}">
+    <!-- AI 报告 -->
+    <view class="card ai-card" wx:if="{{canUseAI}}">
+      <view class="card-title">
+        <text class="ai-title-icon">🤖</text> AI 情绪洞察
+      </view>
+      
+      <!-- 加载中 -->
+      <view wx:if="{{aiReportLoading}}" class="ai-loading">
+        <view class="loading-dots">
+          <view class="dot"></view>
+          <view class="dot"></view>
+          <view class="dot"></view>
+        </view>
+        <view class="loading-text">AI 正在分析你的情绪数据...</view>
+      </view>
+      
+      <!-- 报告内容 -->
+      <view wx:elif="{{aiReport}}" class="ai-report-content">
+        <text>{{aiReport}}</text>
+      </view>
+
+      <!-- 生成失败 -->
+      <view wx:else class="ai-fail">
+        <text>AI 报告生成失败，请稍后重试</text>
+        <view class="ai-refresh" bindtap="regenerateReport">🔄 重试</view>
+      </view>
+    </view>
+
     <!-- 情绪占比 -->
     <view class="card chart-card">
       <view class="card-title">情绪占比</view>
@@ -63,33 +98,11 @@
       </view>
     </view>
 
-    <!-- AI 报告 -->
-    <view class="card ai-card" wx:if="{{canUseAI}}">
-      <view class="card-title">
-        <text class="ai-title-icon">🤖</text> AI 情绪洞察
-      </view>
-      
-      <!-- 加载中 -->
-      <view wx:if="{{aiReportLoading}}" class="ai-loading">
-        <view class="loading-dots">
-          <view class="dot"></view>
-          <view class="dot"></view>
-          <view class="dot"></view>
-        </view>
-        <view class="loading-text">AI 正在分析你的情绪数据...</view>
-      </view>
-      
-      <!-- 报告内容 -->
-      <view wx:elif="{{aiReport}}" class="ai-report-content">
-        <text>{{aiReport}}</text>
-        <view class="ai-refresh" bindtap="regenerateReport">🔄 换一份报告</view>
-      </view>
-      
-      <!-- 生成失败 -->
-      <view wx:else class="ai-fail">
-        <text>AI 报告生成失败，请稍后重试</text>
-        <view class="ai-refresh" bindtap="regenerateReport">🔄 重试</view>
-      </view>
+    <!-- AI 操作按钮 -->
+    <view class="ai-actions" wx:if="{{canUseAI}}">
+      <view class="ai-action-btn" bindtap="regenerateReport">🔄 重新生成</view>
+      <view class="ai-action-btn" bindtap="onAISuggestion">💡 建议</view>
+      <view class="ai-action-btn" bindtap="onAIChat">💬 聊天</view>
     </view>
   </view>
 

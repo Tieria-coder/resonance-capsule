@@ -1,50 +1,46 @@
 // app.js
 App({
-  onLaunch() {
-    // 初始化云开发
+  onLaunch: function () {
     if (wx.cloud) {
       wx.cloud.init({
-        env: 'cloud1-d5gev82b5db8c2485', // 云环境ID
+        env: 'cloud1-d5gev82b5db8c2485',
         traceUser: true,
       })
     }
-    
-    // 检查登录状态
     this.checkLogin()
   },
 
   globalData: {
     userInfo: null,
     openid: '',
+    tabBar: null,   // 自定义 TabBar 配置，由 app.json 同步而来
   },
 
-  checkLogin() {
-    const userInfo = wx.getStorageSync('userInfo')
+  checkLogin: function () {
+    var userInfo = wx.getStorageSync('userInfo')
     if (userInfo) {
       this.globalData.userInfo = userInfo
     }
   },
 
-  // 保存用户信息
-  setUserInfo(userInfo) {
+  setUserInfo: function (userInfo) {
     this.globalData.userInfo = userInfo
     wx.setStorageSync('userInfo', userInfo)
   },
 
-  // 获取用户唯一ID
-  getOpenid() {
-    return new Promise((resolve, reject) => {
-      if (this.globalData.openid) {
-        resolve(this.globalData.openid)
+  getOpenid: function () {
+    var self = this
+    return new Promise(function (resolve, reject) {
+      if (self.globalData.openid) {
+        resolve(self.globalData.openid)
         return
       }
-      
       wx.cloud.callFunction({
         name: 'login',
-      }).then(res => {
-        this.globalData.openid = res.result.openid
+      }).then(function (res) {
+        self.globalData.openid = res.result.openid
         resolve(res.result.openid)
-      }).catch(err => {
+      }).catch(function (err) {
         reject(err)
       })
     })

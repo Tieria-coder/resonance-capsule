@@ -1,0 +1,21 @@
+<!-- 录音（录制中）· 填充图标 · 28×28 -->
+<!-- 红色 #E07070 · 带呼吸灯 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+  <!-- 录制圆 · 呼吸 -->
+  <circle cx="14" cy="14" r="10" fill="#E07070" opacity="0.2">
+    <animate attributeName="r" values="10;12;10" dur="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.2;0.08;0.2" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <!-- 麦克风头 -->
+  <rect x="8" y="4" width="12" height="16" rx="6" fill="#E07070"/>
+  <!-- 麦克风头内部 -->
+  <rect x="10" y="6" width="8" height="12" rx="4" fill="#F5D5D5"/>
+  <!-- 麦克风头底座 -->
+  <path d="M6 16 C6 20 9 22 14 22 C19 22 22 20 22 16" fill="none" stroke="#E07070" stroke-width="2"/>
+  <line x1="14" y1="22" x2="14" y2="25" stroke="#E07070" stroke-width="2" stroke-linecap="round"/>
+  <line x1="9" y1="25" x2="19" y2="25" stroke="#E07070" stroke-width="2" stroke-linecap="round"/>
+  <!-- 录制红点 -->
+  <circle cx="14" cy="14" r="3" fill="#E07070">
+    <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite"/>
+  </circle>
+</svg>

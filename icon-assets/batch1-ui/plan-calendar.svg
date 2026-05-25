@@ -1,0 +1,21 @@
+<!-- 情绪计划 · 打勾日历 · 填充图标 · 32×32 -->
+<!-- 薄荷绿 #7BBFA0 · 带呼吸灯效果 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- 日历主体 -->
+  <rect x="4" y="8" width="24" height="22" rx="4" fill="#7BBFA0"/>
+  <!-- 日历顶部横条 -->
+  <rect x="4" y="8" width="24" height="7" rx="4" fill="#5A9A7A"/>
+  <!-- 顶部圆角修正 -->
+  <rect x="4" y="8" width="24" height="4" fill="#5A9A7A"/>
+  <!-- 挂环左 -->
+  <rect x="9" y="4" width="3" height="8" rx="1.5" fill="#5A9A7A"/>
+  <!-- 挂环右 -->
+  <rect x="20" y="4" width="3" height="8" rx="1.5" fill="#5A9A7A"/>
+  <!-- 对勾（粗体） -->
+  <path d="M10 21 L14.5 26 L23 13" stroke="white" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 呼吸灯光晕 -->
+  <circle cx="16" cy="19" r="8" fill="white" opacity="0.08">
+    <animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.08;0.02;0.08" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

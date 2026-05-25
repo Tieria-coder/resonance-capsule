@@ -1,0 +1,9 @@
+<!-- 空状态 · 填充图标 · 48×48 -->
+<!-- 淡灰 #D0D0D0 · 经典空盒子/文件夹 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- 文件夹主体 -->
+  <path d="M4 14 C4 11.8 5.8 10 8 10 L18 10 L22 6 L40 6 C42.2 6 44 7.8 44 10 L44 36 C44 38.2 42.2 40 40 40 L8 40 C5.8 40 4 38.2 4 36 Z" fill="#F5F5F5" stroke="#D0D0D0" stroke-width="1.5"/>
+  <!-- 内部放大镜（搜索中） -->
+  <circle cx="24" cy="25" r="9" fill="none" stroke="#D0D0D0" stroke-width="1.5"/>
+  <line x1="30.5" y1="31.5" x2="37" y2="38" stroke="#D0D0D0" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

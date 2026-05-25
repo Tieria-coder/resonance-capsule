@@ -1,0 +1,11 @@
+<!-- 图标 · 成就徽章 · 填充图标 · 24×24 -->
+<!-- 金色 #F5C842 · 徽章 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 徽章绶带 -->
+  <path d="M12 2 L14 7 L12 6 L10 7 Z" fill="#F5C842"/>
+  <!-- 徽章主体 -->
+  <circle cx="12" cy="13" r="7" fill="#F5C842"/>
+  <circle cx="12" cy="13" r="6" fill="none" stroke="white" stroke-width="0.8" opacity="0.6"/>
+  <!-- 星星 -->
+  <path d="M12 9 L12.6 11.2 L15 11.2 L13 12.7 L13.8 15 L12 13.5 L10.2 15 L11 12.7 L9 11.2 L11.4 11.2 Z" fill="white" opacity="0.9"/>
+</svg>

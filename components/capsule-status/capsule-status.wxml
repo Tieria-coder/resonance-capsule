@@ -1,0 +1,55 @@
+<!--components/capsule-status/capsule-status.wxml-->
+<!-- SVG胶囊组件 - 支持8阶段视觉演变动画 -->
+
+<view class="capsule-container {{stageClass}}" style="width: {{width}}rpx; height: {{height}}rpx;">
+  <!-- SVG胶囊主体 -->
+  <view class="capsule-body">
+    <!-- 胶囊形状 - 使用SVG绘制 -->
+    <view class="capsule-svg-container">
+      <image 
+        class="capsule-svg" 
+        src="{{capsuleSvg}}" 
+        mode="aspectFit"
+        style="width: {{width}}rpx; height: {{height}}rpx;"
+      />
+    </view>
+    
+    <!-- 眼睛 - 可动画 -->
+    <view class="capsule-eyes" wx:if="{{stage >= 1}}">
+      <view class="eye left-eye {{eyeAnimation}}">
+        <view class="eye-inner"></view>
+      </view>
+      <view class="eye right-eye {{eyeAnimation}}">
+        <view class="eye-inner"></view>
+      </view>
+    </view>
+    
+    <!-- 光效 -->
+    <view class="capsule-glow {{glowAnimation}}"></view>
+    
+    <!-- 彩色光点 (stage 4+) -->
+    <view class="light-particles" wx:if="{{stage >= 4}}">
+      <view class="particle p1"></view>
+      <view class="particle p2"></view>
+      <view class="particle p3"></view>
+      <view class="particle p4"></view>
+    </view>
+    
+    <!-- 裂缝 (stage 6+) -->
+    <view class="crack-mark" wx:if="{{stage >= 6}}">
+      <view class="crack-line"></view>
+    </view>
+  </view>
+  
+  <!-- 阶段指示器 -->
+  <view class="stage-indicator" wx:if="{{showStage}}">
+    <text class="stage-text">阶段 {{stage + 1}}/8</text>
+    <view class="stage-dots">
+      <view 
+        class="dot {{index <= stage ? 'active' : ''}}" 
+        wx:for="{{[0,1,2,3,4,5,6,7]}}" 
+        wx:key="index"
+      ></view>
+    </view>
+  </view>
+</view>

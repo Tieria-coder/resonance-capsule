@@ -1,0 +1,14 @@
+<!-- 图标 · 魔法衣橱 · 填充图标 · 24×24 -->
+<!-- 紫灰 #A098B8 · 衣橱/衣柜 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 衣橱主体 -->
+  <rect x="3" y="3" width="18" height="19" rx="2" fill="#A098B8"/>
+  <!-- 门缝 -->
+  <rect x="11" y="3" width="1" height="19" fill="rgba(255,255,255,0.25)"/>
+  <!-- 顶部雕花线 -->
+  <rect x="3" y="3" width="18" height="2" rx="1" fill="rgba(255,255,255,0.15)"/>
+  <!-- 把手左 -->
+  <rect x="7" y="10" width="1.5" height="3" rx="0.75" fill="rgba(255,255,255,0.5)"/>
+  <!-- 把手右 -->
+  <rect x="15.5" y="10" width="1.5" height="3" rx="0.75" fill="rgba(255,255,255,0.5)"/>
+</svg>

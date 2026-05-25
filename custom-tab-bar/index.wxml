@@ -1,0 +1,19 @@
+<!-- 自定义 TabBar，覆盖小程序原生 tabBar -->
+<view class="tabbar-wrapper">
+  <view
+    wx:for="{{list}}"
+    wx:key="index"
+    class="tabbar-item {{active === index ? 'active' : ''}}"
+    bindtap="switchTab"
+    data-index="{{index}}"
+  >
+    <image
+      class="tabbar-icon"
+      src="{{active === index ? item.selIcon : item.icon}}"
+      mode="aspectFit"
+    />
+    <text class="tabbar-text" style="color: {{active === index ? item.color : '#999999'}}">
+      {{item.text}}
+    </text>
+  </view>
+</view>

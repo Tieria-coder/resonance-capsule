@@ -1,4 +1,7 @@
 {
-  "navigationBarTitleText": "日历",
-  "enablePullDownRefresh": false
+  "navigationBarTitleText": "情绪日历",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "custom-tab-bar": "../../custom-tab-bar/index"
+  }
 }

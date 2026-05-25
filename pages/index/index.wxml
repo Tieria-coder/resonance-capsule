@@ -1,14 +1,35 @@
-<!--pages/index/index.wxml-->
+﻿<!--pages/index/index.wxml-->
 <view class="container">
   <!-- 顶部标题 -->
   <view class="header">
+    <view class="header-left">
+    </view>
     <view class="title">情绪胶囊</view>
+    <view class="header-actions">
+      <!-- 右侧图标已移除 -->
+    </view>
+  </view>
+
+  <!-- 情绪诗语卡片 -->
+  <view class="poetry-card" wx:if="{{poetry}}" bindtap="refreshPoetry">
+    <view class="poetry-header">
+      <view class="poetry-label">情绪诗语</view>
+      <view class="poetry-date">{{poetryDate}}</view>
+    </view>
+    <view class="poetry-body">{{poetry}}</view>
+    <view class="poetry-footer">
+      <text class="poetry-hint">点击换一句</text>
+    </view>
+  </view>
+  <view class="poetry-card poetry-loading" wx:if="{{poetryLoading}}">
+    <image class="icon-sm" src="/images/icons/poem-sparkle@2x.png" mode="aspectFit" style="display:inline-block;vertical-align:middle;margin-right:8rpx;animation:sparkle-fade 1.5s ease-in-out infinite"/>
+    <view class="poetry-loading-text" style="display:inline;vertical-align:middle">诗语生成中...</view>
   </view>
 
   <!-- AI 回应气泡 -->
   <view class="ai-bubble {{showAiResponse ? 'show' : ''}}" wx:if="{{showAiResponse && aiResponse}}" bindtap="closeAiResponse">
     <view class="ai-bubble-content">
-      <view class="ai-bubble-icon">🤖</view>
+      <view class="ai-bubble-icon"><image class="icon-sm" src="/images/icons/ai-companion@2x.png" mode="aspectFit"/></view>
       <view class="ai-bubble-text">{{aiResponse}}</view>
     </view>
     <view class="ai-bubble-hint">点击关闭</view>
@@ -17,26 +38,22 @@
   <!-- 情绪记录按钮 -->
   <view class="record-section">
     <view class="record-btn-wrap">
-      <view 
+      <view
         class="record-btn {{selectedEmotion ? 'selected' : ''}}"
         bindtap="showEmotionPicker"
       >
-        <view class="record-icon">{{selectedEmotion ? selectedEmotion.icon : '📝'}}</view>
-        <view class="record-text">{{selectedEmotion ? selectedEmotion.label : '点击记录此刻心情'}}</view>
+        <image class="record-icon icon-md" src="/images/icons/record-default@2x.png" mode="aspectFit"/>
+        <view class="record-text">{{selectedEmotion ? selectedEmotion.emotion_label : '记录此刻'}}</view>
       </view>
       <!-- AI 日记按钮 -->
-      <view class="diary-btn" bindtap="showEmotionPicker">
-        <view class="diary-icon">🤖</view>
-        <view class="diary-text">AI智能日记</view>
+      <view class="diary-btn" bindtap="showDiaryPicker">
+        <image class="diary-icon icon-md icon-anim-ai-antenna" src="/images/icons/ai-diary@2x.png" mode="aspectFit"/>
+        <view class="diary-text">AI日记</view>
       </view>
     </view>
   </view>
 
   <!-- 今日记录统计 -->
-  <view class="today-stats">
-    <text class="stats-text">今日已记录 {{todayCount}} 次</text>
-  </view>
-
   <!-- 今日记录列表 -->
   <view class="records-list" wx:if="{{todayRecords.length > 0}}">
     <view class="section-title">今日记录</view>
@@ -46,23 +63,28 @@
           <view class="record-period">{{item.period_icon}} {{item.period_label}}</view>
           <view class="record-time">{{item.formatted_time}}</view>
         </view>
-        <view class="record-emotion">{{item.emotion_icon}} {{item.emotion_label}}</view>
+        <view class="record-emotion">{{item.emotion_display}}</view>
       </view>
       <view class="record-text-content" wx:if="{{item.text}}">{{item.text}}</view>
       <!-- AI 陪伴回应 -->
       <view class="record-ai-response" wx:if="{{item.ai_response}}">
-        <view class="ai-tag">🤖 AI</view>
+        <view class="ai-tag"><image class="icon-xs" src="/images/icons/ai-companion@2x.png" mode="aspectFit"/> AI</view>
         <view class="ai-text">{{item.ai_response}}</view>
+      </view>
+      <!-- 继续聊聊按钮 -->
+      <view class="record-actions">
+        <view class="record-chat-btn" bindtap="openChat" data-id="{{item._id}}"><image class="icon-xs" src="/images/icons/continue-chat@2x.png" mode="aspectFit"/> 继续聊聊</view>
+        <view class="record-delete-text" bindtap="deleteRecord" data-id="{{item._id}}">删除</view>
       </view>
     </view>
   </view>
 
   <!-- 连续打卡 -->
   <view class="streak-section" wx:if="{{userStats.streak > 0}}">
-    <view class="streak-card">
-      <view class="streak-icon">🔥</view>
+    <view class="streak-card" bindtap="goToPlan">
+      <view class="streak-icon"><image class="icon-md" src="/images/icons/plan-calendar@2x.png" mode="aspectFit"/></view>
       <view class="streak-info">
-        <view class="streak-count">连续打卡 {{userStats.streak}} 天</view>
+        <view class="streak-count">情绪计划 · 已记录 {{userStats.streak}} 天</view>
         <view class="streak-progress">
           <view class="progress-bar">
             <view class="progress-fill" style="width: {{streakProgress}}%"></view>
@@ -75,69 +97,150 @@
 
   <!-- 空状态 -->
   <view class="empty-tips" wx:if="{{todayRecords.length === 0}}">
-    <view class="empty-icon">💭</view>
+    <view class="empty-icon"><image class="icon-xl" src="/images/icons/empty-state@2x.png" mode="aspectFit"/></view>
     <view class="empty-text">还没有记录哦</view>
     <view class="empty-subtext">点击上方按钮，记录今天的第一条情绪</view>
-    <view class="empty-subtext">或试试 AI 智能日记，写什么都能记录 ✨</view>
   </view>
 </view>
 
-<!-- 情绪选择弹窗 -->
+<!-- ═══ 情绪选择弹窗 ═══ -->
 <view class="emotion-modal {{showModal ? 'show' : ''}}" bindtap="hideEmotionPicker">
   <view class="modal-content" catchtap="stopPropagation">
-    <!-- 模式切换 -->
+    <!-- 模式切换 Tab -->
     <view class="mode-tabs">
       <view class="mode-tab {{!diaryMode ? 'active' : ''}}" bindtap="switchToManual">手动选择</view>
-      <view class="mode-tab {{diaryMode ? 'active' : ''}}" bindtap="switchToDiary">🤖 AI日记</view>
+      <view class="mode-tab {{diaryMode ? 'active' : ''}}" bindtap="switchToDiary"><image class="icon-xs" src="/images/icons/ai-companion@2x.png" mode="aspectFit"/> AI日记</view>
     </view>
 
-    <!-- 手动选择模式 -->
+
+
+    <!-- ═══ 手动选择模式 ═══ -->
     <view wx:if="{{!diaryMode}}">
-      <view class="modal-title">现在感觉怎么样？</view>
-      <view class="emotion-grid">
-        <view 
-          wx:for="{{emotions}}" 
-          wx:key="key"
-          class="emotion-option {{tempEmotion.key === item.key ? 'selected' : ''}}"
-          bindtap="selectEmotion"
-          data-emotion="{{item}}"
-        >
-          <block wx:if="{{item.iconType === 'image'}}">
-            <image class="emotion-img" src="{{item.icon}}" mode="aspectFit"></image>
-          </block>
-          <block wx:else>
-            <view class="emotion-icon">{{item.icon}}</view>
-          </block>
-          <view class="emotion-label">{{item.label}}</view>
+      <view class="modal-title">选择情绪大类</view>
+
+      <!-- ═══ 初始状态：4+4 布局 ═══ -->
+      <block wx:if="{{!expandedCategoryKey}}">
+        <!-- 上面一行：4个 -->
+        <view class="category-row">
+          <view
+            wx:for="{{allCategories}}"
+            wx:key="key"
+            wx:if="{{index < 4}}"
+            class="category-card"
+            bindtap="toggleCategory"
+            data-key="{{item.key}}"
+          >
+            <view class="category-icon">{{item.icon}}</view>
+            <view class="category-label">{{item.label}}</view>
+          </view>
         </view>
-      </view>
-      <view class="text-input-section">
-        <view class="text-label">添加文字（可选）</view>
-        <textarea 
-          class="text-input" 
-          placeholder="记录此刻的心情..." 
-          maxlength="200"
-          bindinput="onTextInput"
-          value="{{tempText}}"
-        ></textarea>
-        <view class="text-count">{{tempText.length}}/200</view>
-      </view>
-      <view class="modal-actions">
-        <view class="btn-cancel" bindtap="hideEmotionPicker">取消</view>
-        <view class="btn-confirm {{aiLoading ? 'loading' : ''}}" bindtap="confirmRecord">
-          {{aiLoading ? '🤖 AI思考中...' : '确定保存'}}
+        <!-- 下面一行：4个 -->
+        <view class="category-row">
+          <view
+            wx:for="{{allCategories}}"
+            wx:key="key"
+            wx:if="{{index >= 4}}"
+            class="category-card"
+            bindtap="toggleCategory"
+            data-key="{{item.key}}"
+          >
+            <view class="category-icon">{{item.icon}}</view>
+            <view class="category-label">{{item.label}}</view>
+          </view>
         </view>
-      </view>
+      </block>
+
+      <!-- ═══ 选中状态：3+1+4 布局 ═══ -->
+      <block wx:else>
+        <!-- 上面一行：3个（缩小） -->
+        <view class="category-row category-row--mini">
+          <view
+            wx:for="{{topCategories}}"
+            wx:key="key"
+            class="category-card shrunk"
+            bindtap="toggleCategory"
+            data-key="{{item.key}}"
+          >
+            <view class="category-icon">{{item.icon}}</view>
+            <view class="category-label">{{item.label}}</view>
+          </view>
+        </view>
+
+        <!-- 中间一行：1个（放大，内含子情绪） -->
+        <view class="category-row category-row--expanded">
+          <view class="category-card expanded">
+            <view class="sub-title">{{expandedCategory.icon}} {{expandedCategory.label}} - 具体感受</view>
+            <view class="sub-emotion-grid">
+              <view
+                wx:for="{{expandedCategory.subEmotions}}"
+                wx:key="key"
+                class="sub-emotion-item {{selectedKeys[item.key] ? 'selected' : ''}}"
+                bindtap="selectSubEmotion"
+                data-key="{{item.key}}"
+              >
+                <view class="sub-icon">{{item.icon}}</view>
+                <view class="sub-label">{{item.label}}</view>
+                <view class="sub-desc">{{item.desc}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 下面一行：4个（缩小） -->
+        <view class="category-row category-row--mini">
+          <view
+            wx:for="{{bottomCategories}}"
+            wx:key="key"
+            class="category-card shrunk"
+            bindtap="toggleCategory"
+            data-key="{{item.key}}"
+          >
+            <view class="category-icon">{{item.icon}}</view>
+            <view class="category-label">{{item.label}}</view>
+          </view>
+        </view>
+
+        <!-- ═══ 已选情绪（横向滚动，不换行） ═══ -->
+        <scroll-view class="selected-scroll" scroll-x="true" wx:if="{{tempSubEmotions.length > 0}}">
+          <view class="selected-tags">
+            <view wx:for="{{tempSubEmotions}}" wx:key="key" class="tag-item">
+              <text class="tag-icon">{{item.icon}}</text>
+              <text class="tag-label">{{item.label}}</text>
+              <image class="tag-remove" src="/images/icons/close@2x.png" mode="aspectFit"/>
+            </view>
+          </view>
+        </scroll-view>
+
+        <!-- 文字输入 -->
+        <view class="text-input-section">
+          <view class="text-label">此刻有什么想说的吗？</view>
+          <textarea
+            class="text-input"
+            placeholder="想说什么都可以，不想说也可以~"
+            maxlength="500"
+            bindinput="onTextInput"
+            value="{{tempText}}"
+          ></textarea>
+          <view class="text-count">{{tempText.length}}/500</view>
+        </view>
+
+        <view class="modal-actions">
+          <view class="btn-cancel" bindtap="hideEmotionPicker">取消</view>
+          <view class="btn-confirm {{aiLoading ? 'loading' : ''}}" bindtap="confirmRecord">
+            {{aiLoading ? 'AI思考中...' : '确定保存'}}
+          </view>
+        </view>
+      </block>
     </view>
 
-    <!-- AI 日记模式 -->
+    <!-- ═══ AI 日记模式 ═══ -->
     <view wx:else>
-      <view class="modal-title">写点什么吧 ✍️</view>
+      <view class="modal-title">写点什么吧 <image class="icon-xs-inline" src="/images/icons/write-something@2x.png" mode="aspectFit"/></view>
       <view class="diary-desc">打字或按住麦克风语音输入，AI 自动理解你的情绪</view>
       <view class="text-input-section">
-        <textarea 
-          class="text-input diary-textarea" 
-          placeholder="今天发生了什么？心情怎么样？想到什么都可以写..." 
+        <textarea
+          class="text-input diary-textarea"
+          placeholder="今天发生了什么？心情怎么样？想到什么都可以写..."
           maxlength="500"
           bindinput="onDiaryInput"
           value="{{diaryText}}"
@@ -145,13 +248,13 @@
         <!-- 语音按钮 -->
         <view class="voice-row">
           <view class="text-count">{{diaryText.length}}/500</view>
-          <view 
-            class="voice-btn {{isRecording ? 'recording' : ''}}" 
-            bindtouchstart="startVoiceInput" 
+          <view
+            class="voice-btn {{isRecording ? 'recording' : ''}}"
+            bindtouchstart="startVoiceInput"
             bindtouchend="stopVoiceInput"
             bindtouchcancel="cancelVoiceInput"
           >
-            <text class="voice-icon">{{isRecording ? '⏺' : '🎙️'}}</text>
+            <image class="voice-icon icon-sm {{isRecording ? 'icon-anim-mic' : ''}}" src="{{isRecording ? '/images/icons/mic-recording@2x.png' : '/images/icons/mic-idle@2x.png'}}" mode="aspectFit"/>
             <text class="voice-label">{{isRecording ? '松开结束' : '按住说话'}}</text>
           </view>
         </view>
@@ -168,15 +271,82 @@
       <view class="modal-actions">
         <view class="btn-cancel" bindtap="hideEmotionPicker">取消</view>
         <view class="btn-confirm {{aiLoading ? 'loading' : ''}}" bindtap="confirmDiary">
-          {{aiLoading ? '🤖 AI理解中...' : '🤖 让AI来理解'}}
+          {{aiLoading ? 'AI理解中...' : '让AI来理解'}}
         </view>
       </view>
     </view>
   </view>
 </view>
 
-<!-- Toast -->
+
+
 <view class="toast" wx:if="{{showToast}}">
-  <view class="toast-icon">✓</view>
+  <view class="toast-icon"><image class="icon-xs" src="/images/icons/success-confirm@2x.png" mode="aspectFit"/></view>
   <view class="toast-text">{{toastText}}</view>
 </view>
+
+<!-- ═══ 继续聊聊弹窗 ═══ -->
+<view class="chat-modal {{showChat ? 'show' : ''}}" bindtap="closeChat">
+  <view class="chat-content" catchtap="stopChatPropagation">
+    <!-- 头部 -->
+    <view class="chat-header">
+      <view class="chat-title"><image class="icon-xs" src="/images/icons/continue-chat@2x.png" mode="aspectFit"/> 继续聊聊</view>
+      <view class="chat-round" wx:if="{{chatRoundCount > 0}}">{{chatRoundCount}}/5 轮</view>
+      <view class="chat-close" bindtap="closeChat"><image class="icon-sm" src="/images/icons/close@2x.png" mode="aspectFit"/></view>
+    </view>
+
+    <!-- 报告引用（从报告页跳转时显示） -->
+    <view class="report-quote" wx:if="{{reportContext && chatMessages.length === 0}}">
+      <view class="report-quote-label">📋 情绪洞察</view>
+      <view class="report-quote-text">{{reportContext.aiReport}}</view>
+    </view>
+
+    <!-- 提示文字 -->
+    <view class="chat-tip" wx:if="{{chatMessages.length === 0 && !reportContext}}">
+      今天想聊聊什么呢？
+    </view>
+
+    <!-- 消息列表 -->
+    <scroll-view class="chat-messages" scroll-y="true" scroll-top="99999">
+      <view wx:for="{{chatMessages}}" wx:key="index" class="msg-item msg-{{item.role}}">
+        <view class="msg-avatar"><image wx:if="{{item.role === 'ai'}}" class="icon-xs" src="/images/icons/ai-companion@2x.png" mode="aspectFit"/><image wx:else class="icon-xs" src="/images/icons/user-avatar@2x.png" mode="aspectFit"/></view>
+        <view class="msg-bubble">
+          <view class="msg-text">{{item.content}}</view>
+          <view class="msg-time">{{item.time}}</view>
+        </view>
+      </view>
+      <!-- 加载中 -->
+      <view class="msg-item msg-ai" wx:if="{{chatLoading}}">
+        <view class="msg-avatar"><image class="icon-xs" src="/images/icons/ai-companion@2x.png" mode="aspectFit"/></view>
+        <view class="msg-bubble loading-bubble">
+          <view class="typing-dot"></view>
+          <view class="typing-dot"></view>
+          <view class="typing-dot"></view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 输入区 -->
+    <view class="chat-input-area">
+      <textarea
+        class="chat-input"
+        placeholder="想说点什么..."
+        maxlength="200"
+        confirm-type="send"
+        bindconfirm="sendChat"
+        bindinput="onChatInput"
+        value="{{chatInput}}"
+        wx:if="{{!chatLoading}}"
+      ></textarea>
+      <view class="chat-input-disabled" wx:else>AI 正在思考中...</view>
+      <view class="chat-send-btn {{chatInput.trim() ? 'active' : ''}}" bindtap="sendChat">发送</view>
+    </view>
+
+    <!-- 结束提示 -->
+    <view class="chat-footer" wx:if="{{chatRoundCount >= 5}}">
+      已达今日上限，明天再来 <image class="icon-xs-inline" src="/images/icons/today-done@2x.png" mode="aspectFit"/>
+    </view>
+  </view>
+</view>
+<custom-tab-bar />
+

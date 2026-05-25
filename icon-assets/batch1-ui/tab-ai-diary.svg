@@ -1,0 +1,16 @@
+<!-- Tab · AI日记 · 填充图标 · 24×24 -->
+<!-- 靛蓝 #7B8FBA -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 机器人脸 -->
+  <rect x="4" y="5" width="16" height="14" rx="4" fill="#7B8FBA"/>
+  <!-- 眼睛 -->
+  <circle cx="9.5" cy="11" r="1.8" fill="white"/>
+  <circle cx="14.5" cy="11" r="1.8" fill="white"/>
+  <!-- 微笑 -->
+  <path d="M9.5 15 Q12 17 14.5 15" stroke="white" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  <!-- 天线 -->
+  <line x1="12" y1="5" x2="12" y2="2" stroke="#7B8FBA" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="12" cy="1.3" r="1.2" fill="#A8B5D4">
+    <animate attributeName="opacity" values="1;0.35;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

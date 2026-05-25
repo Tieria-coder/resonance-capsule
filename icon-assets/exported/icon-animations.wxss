@@ -1,0 +1,139 @@
+/* ============================================================
+   情绪胶囊 · 图标 CSS 呼吸灯动画
+   微信小程序 WXSS 兼容写法（animation 通用）
+   使用方式：给图标 image 或 view 添加对应 class
+   ============================================================ */
+
+/* ---------- 1. AI陪伴 · 天线球呼吸 ---------- */
+/*
+  HTML: <image src="/icons/ai-companion@2x.png" class="icon-anim-ai-antenna"/>
+  效果: 天线球从亮到暗再变亮，2秒一个周期
+*/
+@keyframes anim-ai-antenna {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.icon-anim-ai-antenna {
+  animation: anim-ai-antenna 2s ease-in-out infinite;
+}
+
+
+/* ---------- 2. 情绪计划（打勾日历）· 光晕脉冲 ---------- */
+/*
+  HTML: <image src="/icons/plan-calendar@2x.png" class="icon-anim-calendar-glow"/>
+  效果: 背景光晕缓慢扩散收缩，2秒周期
+*/
+@keyframes anim-calendar-glow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.3;
+  }
+}
+.icon-anim-calendar-glow {
+  animation: anim-calendar-glow 2s ease-in-out infinite;
+}
+
+
+/* ---------- 3. 录音中 · 麦克风脉冲环 ---------- */
+/*
+  HTML: <image src="/icons/mic-recording@2x.png" class="icon-anim-mic-pulse"/>
+  效果: 外圈脉冲扩散，1.5秒周期，录制状态提醒
+*/
+@keyframes anim-mic-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.15;
+  }
+}
+.icon-anim-mic-pulse {
+  animation: anim-mic-pulse 1.5s ease-in-out infinite;
+}
+
+
+/* ---------- 4. 诗语生成中 · 星星闪烁 ---------- */
+/*
+  HTML: <image src="/icons/poem-sparkle@2x.png" class="icon-anim-sparkle"/>
+  效果: 右上小星先亮后暗，左下小星错开相位闪烁，1.5秒周期
+  注意: 静态 PNG 无法区分上下星，用整体透明度呼吸代替
+*/
+@keyframes anim-sparkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.92); }
+}
+.icon-anim-sparkle {
+  animation: anim-sparkle 1.5s ease-in-out infinite;
+}
+
+
+/* ---------- 5. AI日记 Tab · 天线球呼吸 ---------- */
+/*
+  HTML: <image src="/icons/tab-ai-diary@2x.png" class="icon-anim-tab-ai"/>
+  效果: 同 AI陪伴天线
+*/
+.icon-anim-tab-ai {
+  animation: anim-ai-antenna 2s ease-in-out infinite;
+}
+
+
+/* ---------- 6. 打卡连续 · 日历缩放提醒 ---------- */
+/*
+  HTML: <image src="/icons/plan-calendar@2x.png" class="icon-anim-checkin-pop"/>
+  效果: 轻微弹跳，吸引注意力（用于打卡成功瞬间）
+*/
+@keyframes anim-checkin-pop {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.18); }
+  60% { transform: scale(0.95); }
+  80% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+.icon-anim-checkin-pop {
+  animation: anim-checkin-pop 0.6s ease-out forwards;
+}
+
+
+/* ---------- 7. 成功确认 · 弹出确认 ---------- */
+/*
+  HTML: <image src="/icons/success-confirm@2x.png" class="icon-anim-success-pop"/>
+*/
+.icon-anim-success-pop {
+  animation: anim-checkin-pop 0.5s ease-out forwards;
+}
+
+
+/* ============================================================
+   使用示例（WXSS）
+   ============================================================
+
+   page.wxml:
+   --------
+   <!-- 静态图标 -->
+   <image src="/icons/close@2x.png" class="icon-static"/>
+   
+   <!-- 呼吸灯图标 -->
+   <image src="/icons/ai-companion@2x.png" class="icon-static icon-anim-ai-antenna"/>
+   
+   <!-- 录制中脉冲 -->
+   <image src="/icons/mic-recording@2x.png" class="icon-static icon-anim-mic-pulse"/>
+   
+   <!-- 打卡成功动画（播放一次）-->
+   <image src="/icons/plan-calendar@2x.png" class="icon-static icon-anim-checkin-pop"/>
+
+   page.wxss:
+   --------
+   .icon-static {
+     width: 32px;
+     height: 32px;
+   }
+   
+   /* 按需引入动画 class */
+
+   ============================================================ */

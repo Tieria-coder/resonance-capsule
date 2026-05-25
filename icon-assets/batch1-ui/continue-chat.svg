@@ -1,0 +1,10 @@
+<!-- 继续聊聊 · 填充图标 · 24×24 -->
+<!-- 暖橙 #E8956A · 经典对话气泡 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 主气泡（圆角矩形 + 左下角尖） -->
+  <path d="M5 4 C3.9 4 3 4.9 3 6 L3 15 C3 16.1 3.9 17 5 17 L8 17 L8 20 L12 17 L19 17 C20.1 17 21 16.1 21 15 L21 6 C21 4.9 20.1 4 19 4 Z" fill="#E8956A"/>
+  <!-- 三个点 -->
+  <circle cx="8" cy="10" r="1.5" fill="white"/>
+  <circle cx="12" cy="10" r="1.5" fill="white"/>
+  <circle cx="16" cy="10" r="1.5" fill="white"/>
+</svg>

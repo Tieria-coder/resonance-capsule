@@ -1,0 +1,14 @@
+<!-- 诗语生成中 · 填充图标 · 24×24 -->
+<!-- 柔黄 #E5C07B · 四角星 + 呼吸闪烁 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 主四角星（sparkle 风格） -->
+  <path d="M12 2 L14.5 8.5 L21 10.5 L14.5 12.5 L12 19 L9.5 12.5 L3 10.5 L9.5 8.5 Z" fill="#E5C07B"/>
+  <!-- 右上小四角星（呼吸） -->
+  <path d="M19 2 L20 5 L23 6 L20 7 L19 10 L18 7 L15 6 L18 5 Z" fill="#E5C07B" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;0.1;0.6" dur="1.5s" repeatCount="indefinite"/>
+  </path>
+  <!-- 左下小四角星（呼吸，错开相位） -->
+  <path d="M5 15 L5.7 17 L7.7 17.7 L5.7 18.4 L5 20.4 L4.3 18.4 L2.3 17.7 L4.3 17 Z" fill="#E5C07B" opacity="0.5">
+    <animate attributeName="opacity" values="0.1;0.6;0.1" dur="1.5s" repeatCount="indefinite"/>
+  </path>
+</svg>

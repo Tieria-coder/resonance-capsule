@@ -1,4 +1,4 @@
-<!--pages/calendar/calendar.wxml-->
+﻿<!--pages/calendar/calendar.wxml-->
 <view class="container">
   <!-- 月份切换 -->
   <view class="month-header">
@@ -17,11 +17,11 @@
     <view class="weekday-row">
       <view class="weekday" wx:for="{{weekdays}}" wx:key="*this">{{item}}</view>
     </view>
-    
+
     <!-- 日期格子 -->
     <view class="days-container">
-      <view 
-        wx:for="{{days}}" 
+      <view
+        wx:for="{{days}}"
         wx:key="index"
         wx:if="{{item.isCurrentMonth}}"
         class="day-cell {{item.hasRecord ? 'has-record' : ''}} {{item.isToday ? 'today' : ''}}"
@@ -29,7 +29,10 @@
         data-date="{{item.dateStr}}"
       >
         <view class="day-number">{{item.day}}</view>
-        <view class="day-emotion" wx:if="{{item.hasRecord}}">{{item.emotionIcon}}</view>
+        <view class="day-emotion" wx:if="{{item.hasRecord}}">
+          <text class="day-icon">{{item.emotionIcon}}</text>
+          <text class="day-count" wx:if="{{item.recordCount > 1}}">{{item.recordCount}}条</text>
+        </view>
         <view class="day-dot" wx:else></view>
       </view>
     </view>
@@ -40,36 +43,31 @@
     <text>本月记录 {{monthStats.days}} 天</text>
   </view>
 
-  <!-- 底部说明 -->
-  <view class="calendar-tips">
-    <view class="tips-title">图例说明</view>
-    <view class="tips-legend">
-      <view class="legend-item">
-        <text class="legend-icon">😊</text>
-        <text>兴奋</text>
-      </view>
-      <view class="legend-item">
-        <text class="legend-icon">😌</text>
-        <text>愉快</text>
-      </view>
-      <view class="legend-item">
-        <text class="legend-icon">😐</text>
-        <text>平静</text>
-      </view>
-      <view class="legend-item">
-        <text class="legend-icon">😔</text>
-        <text>低落</text>
-      </view>
-      <view class="legend-item">
-        <text class="legend-icon">😢</text>
-        <text>伤心</text>
-      </view>
-      <view class="legend-item">
-        <text class="legend-icon">😴</text>
-        <text>疲惫</text>
+  <!-- 连续记录 + 温暖语 -->
+  <view class="monthly-highlight">
+    <view class="streak-row" wx:if="{{streakDays > 0}}">
+      <image class="streak-icon" src="/images/icons/plan-calendar@2x.png" mode="aspectFit"/>
+      <text class="streak-text">已连续记录 {{streakDays}} 天</text>
+    </view>
+    <view class="monthly-message">{{monthlyMessage}}</view>
+  </view>
+
+  <!-- 本月情绪分布 -->
+  <view class="emotion-stats-card" wx:if="{{emotionStats.length > 0}}">
+    <view class="stats-title">本月情绪分布</view>
+    <view class="stats-total">共 {{emotionStatsTotal}} 条记录</view>
+    <view class="stats-bars">
+      <view class="stats-row" wx:for="{{emotionStats}}" wx:key="key">
+        <text class="stats-icon">{{item.icon}}</text>
+        <text class="stats-label">{{item.label}}</text>
+        <view class="stats-bar-bg">
+          <view class="stats-bar-fill" style="width: {{emotionStatsTotal > 0 ? (item.count / emotionStatsTotal * 100) : 0}}%"></view>
+        </view>
+        <text class="stats-count">{{item.count}}天</text>
       </view>
     </view>
   </view>
+
 </view>
 
 <!-- 日期详情弹窗 -->
@@ -77,23 +75,30 @@
   <view class="modal-content" catchtap="stopPropagation">
     <view class="modal-header">
       <view class="modal-title">{{selectedDateStr}}</view>
-      <view class="modal-close" bindtap="closeDayModal">×</view>
+      <view class="modal-close" bindtap="closeDayModal"><image class="icon-sm" src="/images/icons/close@2x.png" mode="aspectFit"/></view>
     </view>
-    
-    <view class="day-records" wx:if="{{selectedDayRecords.length > 0}}">
-      <view 
-        wx:for="{{selectedDayRecords}}" 
+
+    <scroll-view class="day-records" wx:if="{{selectedDayRecords.length > 0}}" scroll-y="true">
+      <view
+        wx:for="{{selectedDayRecords}}"
         wx:key="_id"
         class="record-row"
       >
         <view class="record-time">{{item.period_icon}} {{item.period_label}} {{item.formatted_time}}</view>
         <view class="record-emotion">{{item.emotion_icon}} {{item.emotion_label}}</view>
         <view class="record-text" wx:if="{{item.text}}">{{item.text}}</view>
+        <!-- AI 回应 -->
+        <view class="record-ai" wx:if="{{item.ai_response}}">
+          <view class="ai-label"><image class="icon-xs" src="/images/icons/ai-companion@2x.png" mode="aspectFit"/> AI：</view>
+          <text class="ai-text">{{item.ai_response}}</text>
+        </view>
       </view>
-    </view>
-    
+    </scroll-view>
+
     <view class="empty-day" wx:else>
       <text>这一天没有记录</text>
     </view>
   </view>
 </view>
+<custom-tab-bar />
+

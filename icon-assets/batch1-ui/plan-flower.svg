@@ -1,0 +1,16 @@
+<!-- 图标 · 计划页 · 填充图标 · 24×24 -->
+<!-- 粉色 #E8A0B8 · 花朵（花数量） -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 花瓣 -->
+  <ellipse cx="12" cy="7.5" rx="3.5" ry="4.5" fill="#E8A0B8"/>
+  <ellipse cx="7.5" cy="12" rx="4.5" ry="3.5" fill="#E8A0B8"/>
+  <ellipse cx="16.5" cy="12" rx="4.5" ry="3.5" fill="#E8A0B8"/>
+  <ellipse cx="9" cy="16" rx="3.5" ry="4" fill="#E8A0B8"/>
+  <ellipse cx="15" cy="16" rx="3.5" ry="4" fill="#E8A0B8"/>
+  <!-- 花心 -->
+  <circle cx="12" cy="12" r="3.5" fill="#F5D06A"/>
+  <!-- 茎 -->
+  <line x1="12" y1="15.5" x2="12" y2="22" stroke="#7BBFA0" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- 叶子 -->
+  <path d="M12 19 Q8 18 7 20 Q9 21 12 19.5" fill="#7BBFA0"/>
+</svg>

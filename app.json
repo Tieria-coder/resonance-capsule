@@ -3,39 +3,48 @@
     "pages/index/index",
     "pages/calendar/calendar",
     "pages/report/report",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/plan/plan"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarBackgroundColor": "#fafafc",
     "navigationBarTitleText": "情绪胶囊",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#f5f5f5"
+    "backgroundColor": "#fafafc"
   },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
   "tabBar": {
+    "custom": true,
     "color": "#999999",
-    "selectedColor": "#4CAF50",
     "backgroundColor": "#ffffff",
     "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "记录"
+        "text": "记录",
+        "iconPath": "images/icons/tab-record@2x.png",
+        "selectedIconPath": "images/icons/tab-record-selected@2x.png"
       },
       {
         "pagePath": "pages/calendar/calendar",
-        "text": "日历"
+        "text": "日历",
+        "iconPath": "images/icons/tab-calendar@2x.png",
+        "selectedIconPath": "images/icons/tab-calendar-selected@2x.png"
       },
       {
         "pagePath": "pages/report/report",
-        "text": "报告"
+        "text": "报告",
+        "iconPath": "images/icons/tab-report@2x.png",
+        "selectedIconPath": "images/icons/tab-report-selected@2x.png"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "images/icons/tab-profile@2x.png",
+        "selectedIconPath": "images/icons/tab-profile-selected@2x.png"
       }
     ]
-  },
-  "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  }
 }

@@ -1,0 +1,15 @@
+<!-- 记录默认 · 填充图标 · 32×32 -->
+<!-- 暖橙 #E8956A -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- 纸面 -->
+  <rect x="6" y="5" width="20" height="24" rx="3" fill="white" stroke="#E8956A" stroke-width="1.5"/>
+  <!-- 纸页折角 -->
+  <path d="M20 5 L26 5 L26 11" fill="#F0F0F0" stroke="#E8956A" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- 横线 -->
+  <line x1="10" y1="14" x2="22" y2="14" stroke="#E8956A" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="10" y1="19" x2="22" y2="19" stroke="#E8956A" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="10" y1="24" x2="18" y2="24" stroke="#E8956A" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- 铅笔笔尖 -->
+  <path d="M22 16 L28 22 L30 20 L24 14 Z" fill="#E8956A"/>
+  <line x1="24" y1="18" x2="22" y2="20" stroke="white" stroke-width="1" stroke-linecap="round"/>
+</svg>

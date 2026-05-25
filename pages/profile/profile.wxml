@@ -1,4 +1,4 @@
-<!--pages/profile/profile.wxml-->
+﻿<!--pages/profile/profile.wxml-->
 <view class="container">
   <!-- 用户信息 -->
   <view class="user-card">
@@ -28,7 +28,7 @@
 
   <!-- 成就徽章 -->
   <view class="section">
-    <view class="section-title">🏆 成就徽章</view>
+    <view class="section-title"><image class="icon-sm-inline" src="/images/icons/achievement-badge@2x.png" mode="aspectFit"/> 成就徽章</view>
     <view class="badges-grid">
       <view 
         wx:for="{{badges}}" 
@@ -43,78 +43,122 @@
 
   <!-- 功能菜单 -->
   <view class="section menu-section">
-    <view class="menu-item" bindtap="onMenuTap" data-menu="emoji">
-      <text>🎨 自定义情绪图标</text>
-      <text class="menu-arrow">›</text>
-    </view>
-    <view class="menu-item" bindtap="onMenuTap" data-menu="export">
-      <text>📥 导出数据</text>
-      <text class="menu-arrow">›</text>
-    </view>
-    <view class="menu-item" bindtap="onMenuTap" data-menu="privacy">
-      <text>📄 隐私政策</text>
-      <text class="menu-arrow">›</text>
-    </view>
-    <view class="menu-item danger" bindtap="onMenuTap" data-menu="clear">
-      <text>🗑️ 清空数据</text>
+    <view 
+      wx:for="{{menuItems}}" 
+      wx:key="key"
+      class="menu-item {{item.danger ? 'danger' : ''}}"
+      bindtap="onMenuTap"
+      data-menu="{{item.key}}"
+    >
+      <text>{{item.icon}} {{item.label}}</text>
       <text class="menu-arrow">›</text>
     </view>
   </view>
 
   <!-- 自定义情绪图标 - 弹窗 -->
-  <view class="emoji-modal {{showEmojiEditor ? 'show' : ''}}" bindtap="closeEmojiEditor">
-    <view class="emoji-modal-content" catchtap="stopPropagation">
-      <view class="emoji-modal-title">🎨 自定义情绪图标</view>
-      <view class="emoji-modal-desc">点击图标可以修改，支持 emoji 或上传图片</view>
+  <view class="modal {{showEmojiEditor ? 'show' : ''}}" bindtap="closeEmojiEditor">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <view class="modal-title"><image class="icon-sm-inline" src="/images/icons/plan-seedling@2x.png" mode="aspectFit"/> 自定义情绪图标</view>
+        <view class="modal-close" bindtap="closeEmojiEditor"><image class="icon-sm" src="/images/icons/close@2x.png" mode="aspectFit"/></view>
+      </view>
+      <view class="modal-desc">点击图标可以修改，支持 emoji 或上传图片</view>
       
-      <view class="emotion-custom-list">
+      <scroll-view scroll-y class="emoji-list">
+        <!-- 遍历情绪大类 -->
         <view 
-          wx:for="{{emotions}}" 
+          wx:for="{{emotionCategories}}" 
           wx:key="key"
-          class="emotion-custom-item"
+          class="emotion-category"
         >
-          <!-- 图标预览 -->
-          <view class="emotion-preview" bindtap="startEditEmotion" data-key="{{item.key}}">
-            <block wx:if="{{customEmotions[item.key].type === 'image'}}">
-              <image 
-                class="emotion-preview-img" 
-                src="{{customEmotions[item.key].value}}" 
-                mode="aspectFit"
-              ></image>
-            </block>
-            <block wx:else>
-              <text class="emotion-preview-emoji">{{customEmotions[item.key].value || item.icon}}</text>
-            </block>
-          </view>
+          <view class="category-title">{{item.icon}} {{item.label}}</view>
           
-          <!-- 标签 + 重置 -->
-          <view class="emotion-custom-info">
-            <view class="emotion-custom-label">{{item.label}}</view>
+          <!-- 遍历子情绪 -->
+          <view class="sub-emotion-list">
             <view 
-              wx:if="{{customEmotions[item.key]}}" 
-              class="emotion-reset-btn" 
-              catchtap="resetEmotion" 
-              data-key="{{item.key}}"
-            >恢复默认</view>
-          </view>
-          
-          <!-- 编辑面板 -->
-          <view class="emotion-edit-panel" wx:if="{{editingEmotion === item.key}}">
-            <view class="edit-row">
-              <input 
-                class="edit-emoji-input" 
-                placeholder="输入emoji或文字" 
-                value="{{editPreview}}" 
-                bindinput="onPreviewInput"
-                maxlength="4"
-              />
-              <view class="edit-save-btn" bindtap="setEmoji">确定</view>
+              wx:for="{{item.subEmotions}}" 
+              wx:for-item="sub"
+              wx:key="key"
+              class="emotion-custom-item"
+            >
+              <!-- 图标预览 -->
+              <view class="emotion-preview" bindtap="startEditEmotion" data-key="{{sub.key}}">
+                <block wx:if="{{customEmotions[sub.key].type === 'image'}}">
+                  <image 
+                    class="emotion-preview-img" 
+                    src="{{customEmotions[sub.key].value}}" 
+                    mode="aspectFit"
+                  ></image>
+                </block>
+                <block wx:else>
+                  <text class="emotion-preview-emoji">{{customEmotions[sub.key].value || sub.icon}}</text>
+                </block>
+              </view>
+              
+              <!-- 标签 + 重置 -->
+              <view class="emotion-custom-info">
+                <view class="emotion-custom-label">{{sub.label}}</view>
+                <view 
+                  wx:if="{{customEmotions[sub.key]}}" 
+                  class="emotion-reset-btn" 
+                  catchtap="resetEmotion" 
+                  data-key="{{sub.key}}"
+                >恢复默认</view>
+              </view>
+              
+              <!-- 编辑面板 -->
+              <view class="emotion-edit-panel" wx:if="{{editingEmotion === sub.key}}">
+                <view class="edit-row">
+                  <input 
+                    class="edit-emoji-input" 
+                    placeholder="输入emoji或文字" 
+                    value="{{editPreview}}" 
+                    bindinput="onPreviewInput"
+                    maxlength="4"
+                  />
+                  <view class="edit-save-btn" bindtap="setEmoji">确定</view>
+                </view>
+                <view class="edit-divider-text">或</view>
+                <view class="edit-upload-btn" bindtap="chooseImage"><image class="icon-xs" src="/images/icons/camera@2x.png" mode="aspectFit"/> 上传图片</view>
+              </view>
             </view>
-            <view class="edit-divider-text">或</view>
-            <view class="edit-upload-btn" bindtap="chooseImage">📷 上传图片</view>
           </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 魔法衣橱 - 主题选择弹窗 -->
+  <view class="modal {{showWardrobe ? 'show' : ''}}" bindtap="closeWardrobe">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <view class="modal-title"><image class="icon-sm-inline" src="/images/icons/theme-wardrobe@2x.png" mode="aspectFit"/> 魔法衣橱</view>
+        <view class="modal-close" bindtap="closeWardrobe"><image class="icon-sm" src="/images/icons/close@2x.png" mode="aspectFit"/></view>
+      </view>
+      <view class="modal-desc">选择一个你喜欢的主题吧 <image class="icon-xs-inline" src="/images/icons/poem-sparkle@2x.png" mode="aspectFit"/></view>
+      
+      <view class="theme-list">
+        <view 
+          wx:for="{{themes}}" 
+          wx:key="key"
+          class="theme-item {{currentTheme === item.key ? 'active' : ''}}"
+          bindtap="selectTheme"
+          data-key="{{item.key}}"
+        >
+          <view class="theme-preview" style="background: {{item.bg}}; border-color: {{item.accent}};">
+            <view class="theme-preview-dot" style="background: {{item.accent}};"></view>
+          </view>
+          <view class="theme-info">
+            <view class="theme-name">{{item.name}}</view>
+            <view class="theme-desc">{{item.desc}}</view>
+          </view>
+          <view class="theme-check"><image class="icon-xs" src="/images/icons/success-confirm@2x.png" mode="aspectFit"/></view>
         </view>
       </view>
     </view>
   </view>
+
+  <view class="nav-placeholder"></view>
 </view>
+<custom-tab-bar />
+

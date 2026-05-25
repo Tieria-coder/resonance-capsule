@@ -1,0 +1,12 @@
+<!-- 图标 · 计划页 · 填充图标 · 24×24 -->
+<!-- 绿色 #7BBFA0 · 时钟（提醒时间） -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <circle cx="12" cy="12" r="10" fill="#7BBFA0"/>
+  <circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="1.2"/>
+  <!-- 时针 -->
+  <line x1="12" y1="12" x2="12" y2="7.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- 分针 -->
+  <line x1="12" y1="12" x2="15" y2="12" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- 中心点 -->
+  <circle cx="12" cy="12" r="1.2" fill="white"/>
+</svg>

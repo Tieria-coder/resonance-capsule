@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "我的",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "custom-tab-bar": "../../custom-tab-bar/index"
+  }
 }

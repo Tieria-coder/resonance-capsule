@@ -1,0 +1,9 @@
+{
+  "name": "generate-report",
+  "version": "1.0.0",
+  "description": "自动生成情绪报告",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>情绪胶囊 · Batch 1 图标导出预览</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f0f0f0;
+    padding: 40px 20px;
+  }
+  h1 { text-align: center; font-size: 22px; color: #1a1a1a; margin-bottom: 6px; }
+  .subtitle { text-align: center; color: #999; font-size: 14px; margin-bottom: 40px; }
+
+  .info-box {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.8;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .info-box h3 { font-size: 14px; color: #333; margin-bottom: 12px; }
+  .info-box code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; }
+  .info-box pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; font-size: 12px; overflow-x: auto; line-height: 1.6; }
+
+  .section-title { font-size: 13px; font-weight: 600; color: #888; margin: 32px 0 14px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .icon-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px 16px;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    border: 0.5px solid rgba(0,0,0,0.04);
+  }
+  .icon-card.dark {
+    background: #1e1e1e;
+    border-color: rgba(255,255,255,0.06);
+  }
+
+  .size-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .size-row img { object-fit: contain; }
+  .icon-card.dark .size-row img { filter: brightness(1.1); }
+
+  .label { font-size: 13px; font-weight: 500; color: #333; margin-bottom: 2px; }
+  .icon-card.dark .label { color: #eee; }
+  .size-note { font-size: 11px; color: #bbb; }
+
+  .badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-top: 5px;
+    color: white;
+  }
+  .badge-breath { background: #E07070; }
+  .badge-anim { background: #7B8FBA; }
+
+  .size-legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+
+<h1>情绪胶囊 · Batch 1 图标包</h1>
+<p class="subtitle">19 个图标 × 3 种尺寸（1x / 2x / 3x）= 57 个 PNG 文件</p>
+
+<div class="info-box">
+  <h3>📁 文件夹结构</h3>
+  <pre>icon-assets/
+  batch1-ui/           ← SVG 源文件（带动画定义）
+  exported/
+    1x/               ← 1倍图（标准清晰度）
+    2x/               ← 2倍图（Retina / iPhone 推荐）
+    3x/               ← 3倍图（高清屏）
+    icon-animations.wxss   ← CSS 呼吸灯动画代码
+    preview.html       ← 本文件
+  export-svg-to-png.cjs    ← 导出脚本（Node.js）
+</pre>
+
+  <h3 style="margin-top:20px">🎬 呼吸灯动画使用方式</h3>
+  <p>以下图标需要配合 CSS 动画实现呼吸灯效果（PNG 本身不含动效）：</p>
+  <ul style="margin-top:8px; padding-left:20px">
+    <li><code>ai-companion</code> — 天线球呼吸（2秒周期）</li>
+    <li><code>plan-calendar</code> — 日历光晕脉冲（2秒周期）</li>
+    <li><code>mic-recording</code> — 麦克风脉冲（1.5秒周期）</li>
+    <li><code>poem-sparkle</code> — 星星闪烁（1.5秒周期）</li>
+    <li><code>tab-ai-diary</code> — AI日记 Tab 天线（2秒周期）</li>
+  </ul>
+  <p style="margin-top:10px">在 <code>icon-animations.wxss</code> 中复制对应的 <code>@keyframes</code> 和 <code>.icon-anim-*</code> class 到你的 WXSS 文件即可。</p>
+</div>
+
+<div class="size-legend">
+  <span>1x = 24-32px</span>
+  <span>2x = 48-64px</span>
+  <span>3x = 72-96px</span>
+</div>
+
+<!-- ======================== -->
+<div class="section-title">功能入口卡片</div>
+<div class="grid">
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/ai-companion@1x.png" width="24">
+      <img src="2x/ai-companion@2x.png" width="32">
+      <img src="3x/ai-companion@3x.png" width="40">
+    </div>
+    <div class="label">AI陪伴</div>
+    <div class="size-note">32px · 1x/2x/3x</div>
+    <span class="badge badge-breath">呼吸灯天线</span>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/plan-calendar@1x.png" width="24">
+      <img src="2x/plan-calendar@2x.png" width="32">
+      <img src="3x/plan-calendar@3x.png" width="40">
+    </div>
+    <div class="label">情绪计划</div>
+    <div class="size-note">32px · 打勾日历</div>
+    <span class="badge badge-breath">呼吸灯光晕</span>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/record-default@1x.png" width="24">
+      <img src="2x/record-default@2x.png" width="32">
+      <img src="3x/record-default@3x.png" width="40">
+    </div>
+    <div class="label">记录默认</div>
+    <div class="size-note">32px</div>
+  </div>
+</div>
+
+<!-- ======================== -->
+<div class="section-title">聊天 / 消息</div>
+<div class="grid">
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/user-avatar@1x.png" width="24">
+      <img src="2x/user-avatar@2x.png" width="32">
+      <img src="3x/user-avatar@3x.png" width="40">
+    </div>
+    <div class="label">用户头像</div>
+    <div class="size-note">32px</div>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/continue-chat@1x.png" width="24">
+      <img src="2x/continue-chat@2x.png" width="32">
+      <img src="3x/continue-chat@3x.png" width="40">
+    </div>
+    <div class="label">继续聊聊</div>
+    <div class="size-note">24px</div>
+  </div>
+</div>
+
+<!-- ======================== -->
+<div class="section-title">录音 / 书写</div>
+<div class="grid">
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/mic-idle@1x.png" width="28">
+      <img src="2x/mic-idle@2x.png" width="36">
+      <img src="3x/mic-idle@3x.png" width="44">
+    </div>
+    <div class="label">录音（空闲）</div>
+    <div class="size-note">28px</div>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/mic-recording@1x.png" width="28">
+      <img src="2x/mic-recording@2x.png" width="36">
+      <img src="3x/mic-recording@3x.png" width="44">
+    </div>
+    <div class="label">录音（录制中）</div>
+    <div class="size-note">28px</div>
+    <span class="badge badge-breath">脉冲动画</span>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/write-something@1x.png" width="24">
+      <img src="2x/write-something@2x.png" width="32">
+      <img src="3x/write-something@3x.png" width="40">
+    </div>
+    <div class="label">写点什么</div>
+    <div class="size-note">24px</div>
+  </div>
+</div>
+
+<!-- ======================== -->
+<div class="section-title">状态 / 反馈</div>
+<div class="grid">
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/poem-sparkle@1x.png" width="24">
+      <img src="2x/poem-sparkle@2x.png" width="32">
+      <img src="3x/poem-sparkle@3x.png" width="40">
+    </div>
+    <div class="label">诗语生成中</div>
+    <div class="size-note">24px</div>
+    <span class="badge badge-breath">呼吸闪烁</span>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/today-done@1x.png" width="24">
+      <img src="2x/today-done@2x.png" width="32">
+      <img src="3x/today-done@3x.png" width="40">
+    </div>
+    <div class="label">今日完成</div>
+    <div class="size-note">24px</div>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/success-confirm@1x.png" width="24">
+      <img src="2x/success-confirm@2x.png" width="32">
+      <img src="3x/success-confirm@3x.png" width="40">
+    </div>
+    <div class="label">成功确认</div>
+    <div class="size-note">24px</div>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/close@1x.png" width="24">
+      <img src="2x/close@2x.png" width="32">
+      <img src="3x/close@3x.png" width="40">
+    </div>
+    <div class="label">关闭</div>
+    <div class="size-note">24px</div>
+  </div>
+</div>
+
+<!-- ======================== -->
+<div class="section-title">Tab 栏图标</div>
+<div class="grid">
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/tab-record@1x.png" width="24">
+      <img src="2x/tab-record@2x.png" width="32">
+      <img src="3x/tab-record@3x.png" width="40">
+    </div>
+    <div class="label">Tab · 记录</div>
+    <div class="size-note">24px</div>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/tab-ai-diary@1x.png" width="24">
+      <img src="2x/tab-ai-diary@2x.png" width="32">
+      <img src="3x/tab-ai-diary@3x.png" width="40">
+    </div>
+    <div class="label">Tab · AI日记</div>
+    <div class="size-note">24px</div>
+    <span class="badge badge-breath">呼吸灯天线</span>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/tab-calendar@1x.png" width="24">
+      <img src="2x/tab-calendar@2x.png" width="32">
+      <img src="3x/tab-calendar@3x.png" width="40">
+    </div>
+    <div class="label">Tab · 日历</div>
+    <div class="size-note">24px</div>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/tab-report@1x.png" width="24">
+      <img src="2x/tab-report@2x.png" width="32">
+      <img src="3x/tab-report@3x.png" width="40">
+    </div>
+    <div class="label">Tab · 报告</div>
+    <div class="size-note">24px</div>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/tab-profile@1x.png" width="24">
+      <img src="2x/tab-profile@2x.png" width="32">
+      <img src="3x/tab-profile@3x.png" width="40">
+    </div>
+    <div class="label">Tab · 我的</div>
+    <div class="size-note">24px</div>
+  </div>
+</div>
+
+<!-- ======================== -->
+<div class="section-title">AI日记 / 空状态</div>
+<div class="grid">
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/ai-diary@1x.png" width="24">
+      <img src="2x/ai-diary@2x.png" width="32">
+      <img src="3x/ai-diary@3x.png" width="40">
+    </div>
+    <div class="label">AI日记</div>
+    <div class="size-note">24px</div>
+    <span class="badge badge-breath">呼吸灯天线</span>
+  </div>
+  <div class="icon-card">
+    <div class="size-row">
+      <img src="1x/empty-state@1x.png" width="36">
+      <img src="2x/empty-state@2x.png" width="48">
+      <img src="3x/empty-state@3x.png" width="60">
+    </div>
+    <div class="label">空状态</div>
+    <div class="size-note">48px</div>
+  </div>
+</div>
+
+<!-- ======================== -->
+<div class="section-title">深色背景预览</div>
+<div class="grid">
+  <div class="icon-card dark">
+    <div class="size-row">
+      <img src="1x/ai-companion@1x.png" width="24">
+      <img src="2x/ai-companion@2x.png" width="32">
+    </div>
+    <div class="label">AI陪伴 · 深色底</div>
+    <div class="size-note">32px</div>
+    <span class="badge badge-anim">#7B8FBA</span>
+  </div>
+  <div class="icon-card dark">
+    <div class="size-row">
+      <img src="1x/tab-ai-diary@1x.png" width="24">
+      <img src="2x/tab-ai-diary@2x.png" width="32">
+    </div>
+    <div class="label">Tab · 深色底</div>
+    <div class="size-note">24px</div>
+    <span class="badge badge-anim">#7B8FBA</span>
+  </div>
+</div>
+
+<br><br>
+</body>
+</html>

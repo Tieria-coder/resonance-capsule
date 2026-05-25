@@ -1,0 +1,467 @@
+/* components/capsule-status/capsule-status.wxss */
+/* 胶囊组件样式 - 8阶段视觉演变动画 */
+
+.capsule-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.6s ease;
+}
+
+.capsule-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.capsule-svg-container {
+  position: relative;
+  z-index: 2;
+}
+
+.capsule-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 眼睛样式 */
+.capsule-eyes {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 40rpx;
+  z-index: 3;
+}
+
+.eye {
+  width: 24rpx;
+  height: 24rpx;
+  background: var(--eye-color);
+  border-radius: var(--radius-full);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.eye-inner {
+  position: absolute;
+  top: 4rpx;
+  left: 6rpx;
+  width: 8rpx;
+  height: 8rpx;
+  background: var(--eye-glow);
+  border-radius: var(--radius-full);
+}
+
+/* 眼睛动画 */
+.eye-animation-blink {
+  animation: blink 3s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 45%, 55%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.1);
+  }
+}
+
+.eye-animation-happy {
+  animation: happy-eye 2s ease-in-out infinite;
+}
+
+@keyframes happy-eye {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.eye-animation-surprised {
+  animation: surprised-eye 1s ease-in-out infinite;
+}
+
+@keyframes surprised-eye {
+  0%, 100% {
+    height: 24rpx;
+  }
+  50% {
+    height: 32rpx;
+  }
+}
+
+/* 光效 */
+.capsule-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    var(--capsule-glow) 0%,
+    transparent 70%
+  );
+  border-radius: var(--radius-full);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.glow-pulse {
+  animation: glow-pulse-anim var(--animation-slow) ease-in-out infinite;
+}
+
+@keyframes glow-pulse-anim {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+.glow-strong {
+  animation: glow-strong-anim 2s ease-in-out infinite;
+}
+
+@keyframes glow-strong-anim {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+
+/* 彩色光点 */
+.light-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: var(--radius-full);
+  animation: particle-float 3s ease-in-out infinite;
+}
+
+.p1 {
+  background: #ff6b6b;
+  top: 20%;
+  left: 30%;
+  animation-delay: 0s;
+}
+
+.p2 {
+  background: #4ecdc4;
+  top: 40%;
+  right: 25%;
+  animation-delay: 0.5s;
+}
+
+.p3 {
+  background: #ffe66d;
+  bottom: 30%;
+  left: 40%;
+  animation-delay: 1s;
+}
+
+.p4 {
+  background: #a8e6cf;
+  top: 50%;
+  left: 50%;
+  animation-delay: 1.5s;
+}
+
+@keyframes particle-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(20rpx, -20rpx) scale(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-10rpx, -30rpx) scale(0.8);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translate(15rpx, -10rpx) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+/* 裂缝 */
+.crack-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crack-line {
+  width: 4rpx;
+  height: 0%;
+  background: var(--text-primary);
+  animation: crack-grow 1.5s ease-out forwards;
+  transform-origin: center;
+}
+
+@keyframes crack-grow {
+  0% {
+    height: 0%;
+    opacity: 0;
+  }
+  50% {
+    height: 60%;
+    opacity: 0.8;
+  }
+  100% {
+    height: 100%;
+    opacity: 1;
+  }
+}
+
+/* 8阶段样式类 */
+
+/* Stage 0: 沉睡 */
+.stage-0 {
+  opacity: 0.3;
+}
+
+.stage-0 .capsule-svg {
+  filter: grayscale(80%);
+}
+
+.stage-0 .eye {
+  opacity: 0;
+}
+
+/* Stage 1: 唤醒 */
+.stage-1 {
+  opacity: 0.6;
+  animation: stage-1-awaken 2s ease-in-out;
+}
+
+@keyframes stage-1-awaken {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
+
+.stage-1 .capsule-glow {
+  opacity: 0.4;
+}
+
+/* Stage 2: 活跃 */
+.stage-2 {
+  opacity: 0.8;
+  animation: stage-2-sway 3s ease-in-out infinite;
+}
+
+@keyframes stage-2-sway {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+.stage-2 .eye {
+  animation: blink 3s ease-in-out infinite;
+}
+
+/* Stage 3: 成长 */
+.stage-3 {
+  opacity: 1;
+}
+
+.stage-3 .capsule-body {
+  animation: stage-3-grow 1.5s ease-out forwards;
+}
+
+@keyframes stage-3-grow {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.stage-3 .eye {
+  animation: happy-eye 2s ease-in-out infinite;
+}
+
+/* Stage 4: 充盈 */
+.stage-4 .capsule-body {
+  background: linear-gradient(
+    135deg,
+    var(--primary-light) 0%,
+    var(--primary) 50%,
+    var(--primary-dark) 100%
+  );
+  animation: stage-4-glow 2s ease-in-out infinite;
+}
+
+@keyframes stage-4-glow {
+  0%, 100% {
+    box-shadow: 0 0 20rpx var(--primary-light);
+  }
+  50% {
+    box-shadow: 0 0 40rpx var(--primary), 0 0 60rpx var(--primary-light);
+  }
+}
+
+.stage-4 .capsule-glow {
+  animation: glow-strong-anim 2s ease-in-out infinite;
+}
+
+/* Stage 5: 脉动 */
+.stage-5 .capsule-body {
+  animation: stage-5-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes stage-5-pulse {
+  0%, 100% {
+    transform: scale(1.1);
+  }
+  25% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  75% {
+    transform: scale(1.15);
+  }
+}
+
+.stage-5 .eye {
+  animation: surprised-eye 1s ease-in-out infinite;
+}
+
+/* Stage 6: 准备 */
+.stage-6 .capsule-body {
+  animation: stage-6-shake 0.5s ease-in-out infinite;
+}
+
+@keyframes stage-6-shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5rpx);
+  }
+  75% {
+    transform: translateX(5rpx);
+  }
+}
+
+.stage-6 .crack-line {
+  animation: crack-grow 1.5s ease-out forwards;
+}
+
+/* Stage 7: 觉醒 */
+.stage-7 .capsule-body {
+  animation: stage-7-hatch 1.5s ease-out forwards;
+}
+
+@keyframes stage-7-hatch {
+  0% {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  30% {
+    transform: scale(1.3);
+    opacity: 0.9;
+    filter: brightness(1.5);
+  }
+  60% {
+    transform: scale(0.8);
+    opacity: 0.6;
+    filter: brightness(2);
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+    filter: brightness(0);
+  }
+}
+
+/* 阶段指示器 */
+.stage-indicator {
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.stage-text {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.stage-dots {
+  display: flex;
+  gap: 12rpx;
+}
+
+.dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: var(--radius-full);
+  background: var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: var(--primary);
+  transform: scale(1.2);
+}
+
+/* 响应式调整 */
+@media (min-width: 768px) {
+  .capsule-container {
+    max-width: 600rpx;
+  }
+}

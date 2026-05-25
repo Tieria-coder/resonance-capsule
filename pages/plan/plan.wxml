@@ -1,0 +1,105 @@
+<!--pages/plan/plan.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">情绪计划</view>
+    <view class="page-desc">加入计划，每天记录，慢慢变好 <image class="icon-xs-inline" src="/images/icons/plan-seedling@2x.png" mode="aspectFit"/></view>
+  </view>
+
+  <!-- 我的计划 -->
+  <view class="section" wx:if="{{myPlans.length > 0}}">
+    <view class="section-title">我的计划</view>
+    <view class="my-plan-list">
+      <view wx:for="{{myPlans}}" wx:key="_id" class="my-plan-card">
+        <view class="mp-header">
+          <view class="mp-info">
+            <view class="mp-name">{{item.plan_name}}</view>
+            <view class="mp-theme"><image class="icon-xs-inline" src="/images/icons/plan-tag@2x.png" mode="aspectFit"/> {{item.theme}}</view>
+          </view>
+          <view class="mp-leave-btn" bindtap="leavePlan" data-id="{{item._id}}">退出</view>
+        </view>
+
+        <view class="mp-progress-wrap">
+          <view class="mp-progress-bar">
+            <view class="mp-progress-fill" style="width: {{item.progress_percent}}%"></view>
+          </view>
+          <view class="mp-progress-text">{{item.completed_days}}/{{item.cycle_days || 7}} 天</view>
+        </view>
+
+        <view class="mp-info-row">
+          <view class="mp-info-item">
+            <image class="mp-icon" src="/images/icons/plan-clock@2x.png" mode="aspectFit"/>
+            <text>{{item.reminder_labels}}</text>
+          </view>
+          <view class="mp-info-item">
+            <image class="mp-icon" src="/images/icons/plan-date@2x.png" mode="aspectFit"/>
+            <text>剩余 {{item.remaining_days}} 天</text>
+          </view>
+          <view class="mp-info-item">
+            <image class="mp-icon" src="/images/icons/plan-flower@2x.png" mode="aspectFit"/>
+            <text>{{item.flowers || 0}} 朵</text>
+          </view>
+        </view>
+
+        <view class="mp-record-btn" bindtap="goRecord">
+          去记录 →
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 可加入的计划 -->
+  <view class="section" wx:if="{{availablePlans.length > 0}}">
+    <view class="section-title">可加入的计划</view>
+    <view class="plan-template-list">
+      <view wx:for="{{availablePlans}}" wx:key="_id" class="plan-template-card" bindtap="showReminderModal" data-id="{{item._id}}" data-name="{{item.plan_name}}">
+        <view class="pt-badge" wx:if="{{item.is_new}}">NEW</view>
+        <view class="pt-name">{{item.plan_name}}</view>
+        <view class="pt-theme" wx:if="{{item.theme}}">{{item.theme}}</view>
+        <view class="pt-desc">{{item.description}}</view>
+        <view class="pt-meta">
+          <text><image class="icon-xs-inline" src="/images/icons/plan-clock@2x.png" mode="aspectFit"/> 一期 {{item.cycle_days || 7}} 天</text>
+          <text>· 每天记录 {{item.daily_target || 1}} 次</text>
+        </view>
+        <view class="pt-join-hint">点击选择提醒时间并加入 →</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{myPlans.length === 0 && availablePlans.length === 0}}">
+    <view class="empty-icon"><image src="/images/icons/plan-seedling@2x.png" mode="aspectFit"/></view>
+    <view class="empty-title">暂无计划</view>
+    <view class="empty-desc">新计划发布后会在这里显示</view>
+  </view>
+
+  <!-- 提醒时间选择弹窗 -->
+  <view class="modal {{showReminderPicker ? 'show' : ''}}" bindtap="closeReminderPicker">
+    <view class="modal-content reminder-modal" catchtap="stopPropagation">
+      <view class="modal-header">
+        <view class="modal-title">选择提醒时间</view>
+        <view class="modal-close" bindtap="closeReminderPicker"><image class="icon-xs-inline" src="/images/icons/close@2x.png" mode="aspectFit"/></view>
+      </view>
+
+      <view class="reminder-plan-name">「{{currentPlanName}}」</view>
+
+      <view class="reminder-tip">计划期间会在以下时间提醒你记录情绪</view>
+
+      <view class="reminder-options">
+        <view wx:for="{{reminderOptions}}" wx:key="key"
+              class="reminder-option {{selectedReminders.indexOf(item.key) >= 0 ? 'selected' : ''}}"
+              bindtap="toggleReminder" data-key="{{item.key}}">
+          <view class="reminder-check"><image wx:if="{{selectedReminders.indexOf(item.key) >= 0}}" class="icon-xs" src="/images/icons/success-confirm@2x.png" mode="aspectFit"/></view>
+          <view class="reminder-label">{{item.label}}</view>
+        </view>
+      </view>
+
+      <view class="modal-actions">
+        <view class="btn-cancel" bindtap="closeReminderPicker">取消</view>
+        <view class="btn-save" bindtap="confirmJoinPlan">确认加入</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="nav-placeholder"></view>
+</view>
