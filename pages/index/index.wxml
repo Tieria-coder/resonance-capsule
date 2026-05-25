@@ -4,7 +4,7 @@
   <view class="header">
     <view class="header-left">
     </view>
-    <view class="title">情绪胶囊</view>
+    <view class="title"></view>
     <view class="header-actions">
       <!-- 右侧图标已移除 -->
     </view>
