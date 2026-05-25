@@ -33,8 +33,6 @@ Page({
   onLoad() {
     this.initRange()
     this._initUser()
-    const tab = this.selectComponent('.tabbar-wrapper')
-    if (tab) tab.setActive(2)
   },
 
   _initUser: function () {
@@ -52,10 +50,10 @@ Page({
   },
 
   onShow() {
-    // userId 已有就直接刷新，尚未拿到就不重复触发
     if (this.data.userId) this.loadReportData()
-    const tab = this.selectComponent('.tabbar-wrapper')
-    if (tab) tab.setActive(2)
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setActive(2)
+    }
   },
 
   // 初始化时间范围

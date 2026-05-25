@@ -39,8 +39,9 @@ Page({
     if (that.data.userId) {
       that.loadCalendarData()
     }
-    var tab = that.selectComponent('.tabbar-wrapper')
-    if (tab) tab.setActive(1)
+    if (typeof that.getTabBar === 'function' && that.getTabBar()) {
+      that.getTabBar().setActive(1)
+    }
   },
 
   initUser: function () {

@@ -1,7 +1,5 @@
 // 自定义 TabBar 组件
 Component({
-  properties: {},
-
   data: {
     active: 0,
     list: [
@@ -25,28 +23,6 @@ Component({
       if (this.data.active !== i) {
         this.setData({ active: i })
       }
-    },
-
-    _updateActive() {
-      const pages = getCurrentPages()
-      if (!pages.length) return
-      const curPage = pages[pages.length - 1].route
-      const tabMap = {
-        'pages/index/index':        0,
-        'pages/calendar/calendar':  1,
-        'pages/report/report':      2,
-        'pages/profile/profile':    3,
-      }
-      const idx = tabMap[curPage]
-      if (idx !== undefined && this.data.active !== idx) {
-        this.setData({ active: idx })
-      }
-    }
-  },
-
-  pageLifetimes: {
-    show() {
-      this._updateActive()
     }
   }
 })

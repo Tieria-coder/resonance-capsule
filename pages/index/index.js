@@ -107,8 +107,9 @@ Page({
       that._loadTodayRecords()
       that._loadUserStats()
     }
-    var tab = that.selectComponent('.tabbar-wrapper')
-    if (tab) tab.setActive(0)
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setActive(0)
+    }
   },
 
   // ─── 页面销毁时清理定时器 ───

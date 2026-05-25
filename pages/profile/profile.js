@@ -51,8 +51,10 @@ Page({
 
   onShow: function () {
     this.loadUserData()
-    var tab = this.selectComponent('.tabbar-wrapper')
-    if (tab) tab.setActive(3)
+    var that = this
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setActive(3)
+    }
   },
 
   loadUserData: function () {
