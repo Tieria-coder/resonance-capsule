@@ -313,10 +313,12 @@ Page({
       var timePeriods = []
       if (that.data.rangeDays === 1) {
         var periodDefs = [
-          { name: '早晨', timeRange: '6:00-12:00', minHour: 6, maxHour: 11 },
-          { name: '下午', timeRange: '12:00-18:00', minHour: 12, maxHour: 17 },
-          { name: '晚上', timeRange: '18:00-22:00', minHour: 18, maxHour: 21 },
-          { name: '深夜', timeRange: '22:00-6:00', minHour: 22, maxHour: 5 },
+          { name: '早晨', timeRange: '6:00-9:00', minHour: 6, maxHour: 8 },
+          { name: '上午', timeRange: '9:00-12:00', minHour: 9, maxHour: 11 },
+          { name: '中午', timeRange: '12:00-14:00', minHour: 12, maxHour: 13 },
+          { name: '下午', timeRange: '14:00-18:00', minHour: 14, maxHour: 17 },
+          { name: '晚上', timeRange: '18:00-21:00', minHour: 18, maxHour: 20 },
+          { name: '深夜', timeRange: '21:00-6:00', minHour: 21, maxHour: 5 },
         ]
         timePeriods = periodDefs.map(function (def) {
           var periodRecords = records.filter(function (r) {
