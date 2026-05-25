@@ -1,5 +1,29 @@
 /* pages/index/index.wxss - black & white style */
 
+/* ═══ 页面入场动画 ═══ */
+@keyframes pageEntrance {
+  0% { opacity: 0; transform: translateY(24rpx); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardEntrance {
+  0% { opacity: 0; transform: translateY(20rpx); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+  animation: pageEntrance 0.35s ease-out both;
+}
+
+/* 各卡片依次入场 */
+.poetry-card { animation: cardEntrance 0.4s ease-out 0.05s both; }
+.capsule-status-wrapper { animation: cardEntrance 0.4s ease-out 0.1s both; }
+.record-section { animation: cardEntrance 0.4s ease-out 0.15s both; }
+.record-item { animation: cardEntrance 0.35s ease-out both; }
+.record-item:nth-child(1) { animation-delay: 0.12s; }
+.record-item:nth-child(2) { animation-delay: 0.17s; }
+.record-item:nth-child(3) { animation-delay: 0.22s; }
+
 /* ═══ 动画关键帧 ═══ */
 @keyframes bounceIn {
   0% { opacity: 0; transform: translateY(30rpx) scale(0.96); }

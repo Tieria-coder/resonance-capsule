@@ -1,10 +1,24 @@
 /* pages/profile/profile.wxss - 黑白质感风格（小程序兼容） */
 
-.container {
-  min-height: 100vh;
-  background: #fafafc;
-  padding-bottom: 160rpx;
+/* ═══ 页面入场动画 ═══ */
+@keyframes pageEntrance {
+  0% { opacity: 0; transform: translateY(24rpx); }
+  100% { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes cardEntrance {
+  0% { opacity: 0; transform: translateY(16rpx); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+  animation: pageEntrance 0.35s ease-out both;
+}
+
+.user-card { animation: cardEntrance 0.4s ease-out 0.05s both; }
+.stats-card { animation: cardEntrance 0.4s ease-out 0.12s both; }
+.menu-card { animation: cardEntrance 0.4s ease-out 0.19s both; }
+.about-card { animation: cardEntrance 0.4s ease-out 0.26s both; }
 
 /* ═══ 用户卡片 ═══ */
 .user-card {

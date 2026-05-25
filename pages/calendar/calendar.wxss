@@ -1,11 +1,24 @@
 /* pages/calendar/calendar.wxss - 黑白质感风格（小程序兼容） */
 
-.container {
-  min-height: 100vh;
-  background: #fafafc;
-  padding: 30rpx;
-  padding-bottom: 120rpx;
+/* ═══ 页面入场动画 ═══ */
+@keyframes pageEntrance {
+  0% { opacity: 0; transform: translateY(24rpx); }
+  100% { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes cardEntrance {
+  0% { opacity: 0; transform: translateY(16rpx); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+  animation: pageEntrance 0.35s ease-out both;
+}
+
+.month-header { animation: cardEntrance 0.4s ease-out 0.05s both; }
+.weekday-row { animation: cardEntrance 0.35s ease-out 0.1s both; }
+.days-container { animation: cardEntrance 0.4s ease-out 0.15s both; }
+.selected-card { animation: cardEntrance 0.4s ease-out 0.2s both; }
 
 /* ═══ 月份头部 ═══ */
 .month-header {

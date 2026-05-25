@@ -1,5 +1,28 @@
 /* pages/report/report.wxss */
 
+/* ═══ 页面入场动画 ═══ */
+@keyframes pageEntrance {
+  0% { opacity: 0; transform: translateY(24rpx); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardEntrance {
+  0% { opacity: 0; transform: translateY(20rpx); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+  animation: pageEntrance 0.35s ease-out both;
+}
+
+/* 各区块依次入场 */
+.range-tabs { animation: cardEntrance 0.4s ease-out 0.05s both; }
+.ai-card { animation: cardEntrance 0.4s ease-out 0.1s both; }
+.ai-actions { animation: cardEntrance 0.4s ease-out 0.15s both; }
+.chart-card { animation: cardEntrance 0.4s ease-out 0.2s both; }
+.trend-card { animation: cardEntrance 0.4s ease-out 0.25s both; }
+.summary-card { animation: cardEntrance 0.4s ease-out 0.3s both; }
+
 .range-tabs {
   display: flex;
   background: #fff;
