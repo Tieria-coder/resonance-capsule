@@ -439,6 +439,62 @@
   color: #999;
 }
 
+/* ═══ 时段分布（日报） ═══ */
+.time-period-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.period-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.period-item:last-child { border-bottom: none; }
+
+.period-info {
+  width: 100rpx;
+  flex-shrink: 0;
+}
+
+.period-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.period-time {
+  font-size: 20rpx;
+  color: #bbb;
+  margin-top: 4rpx;
+}
+
+.period-emotions {
+  flex: 1;
+  display: flex;
+  gap: 8rpx;
+  flex-wrap: wrap;
+}
+
+.period-emoji {
+  font-size: 36rpx;
+}
+
+.period-empty {
+  font-size: 24rpx;
+  color: #ccc;
+}
+
+.period-count {
+  font-size: 24rpx;
+  color: #999;
+  min-width: 60rpx;
+  text-align: right;
+}
+
 /* �T�T�T �ؼ����� �T�T�T */
 .keywords-cloud {
   display: flex;

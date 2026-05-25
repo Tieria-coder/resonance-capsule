@@ -106,8 +106,28 @@
       </view>
     </view>
 
-    <!-- 情绪趋势 -->
-    <view class="card">
+    <!-- 日报：时段分布 -->
+    <view wx:if="{{rangeDays === 1}}" class="card">
+      <view class="card-title">时段分布</view>
+      <view class="time-period-list">
+        <view wx:for="{{timePeriods}}" wx:key="period" class="period-item">
+          <view class="period-info">
+            <view class="period-name">{{item.name}}</view>
+            <view class="period-time">{{item.timeRange}}</view>
+          </view>
+          <view class="period-emotions">
+            <block wx:for="{{item.emotions}}" wx:key="*this" wx:for-item="emo">
+              <text class="period-emoji">{{emo.icon}}</text>
+            </block>
+            <text wx:if="{{item.emotions.length === 0}}" class="period-empty">暂无记录</text>
+          </view>
+          <view class="period-count">{{item.count}}次</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 非日报：情绪趋势（按天） -->
+    <view wx:else class="card">
       <view class="card-title">情绪趋势</view>
       <view class="trend-list">
         <view wx:for="{{dailyTrends}}" wx:key="date" class="trend-item">

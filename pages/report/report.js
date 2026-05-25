@@ -8,8 +8,8 @@ Page({
     // 时间范围
     rangeStart: '',
     rangeEnd: '',
-    rangeLabel: '近3天',
-    rangeDays: 3,
+    rangeLabel: '今日',
+    rangeDays: 1,
 
     // 自定义时间范围
     isCustomRange: false,
@@ -22,6 +22,7 @@ Page({
     emotionStats: [],
     subStats: [],
     dailyTrends: [],
+    timePeriods: [],
     heatmapData: [],
     mostCommon: {},
     stabilityScore: 0,
@@ -308,11 +309,50 @@ Page({
       var stabilityScore = Math.max(0, Math.round(100 - Math.sqrt(variance) * 30))
       var recordDays = Object.keys(dailyData).length
 
+      // ─── 时段分布（日报时使用）───
+      var timePeriods = []
+      if (that.data.rangeDays === 1) {
+        var periodDefs = [
+          { name: '早晨', timeRange: '6:00-12:00', minHour: 6, maxHour: 11 },
+          { name: '下午', timeRange: '12:00-18:00', minHour: 12, maxHour: 17 },
+          { name: '晚上', timeRange: '18:00-22:00', minHour: 18, maxHour: 21 },
+          { name: '深夜', timeRange: '22:00-6:00', minHour: 22, maxHour: 5 },
+        ]
+        timePeriods = periodDefs.map(function (def) {
+          var periodRecords = records.filter(function (r) {
+            var h = new Date(r.record_time).getHours()
+            if (def.minHour <= def.maxHour) {
+              return h >= def.minHour && h <= def.maxHour
+            } else {
+              // 深夜跨天：22:00-24:00 或 0:00-6:00
+              return h >= def.minHour || h <= def.maxHour
+            }
+          })
+          var emotions = periodRecords.map(function (r) {
+            var info = util.getEmotionByKey(r.emotion)
+            return { icon: info.icon || '\uD83D\uDDF8', key: r.emotion }
+          })
+          // 去重保留顺序
+          var seen = {}
+          var uniqueEmotions = []
+          emotions.forEach(function (e) {
+            if (!seen[e.key]) { seen[e.key] = true; uniqueEmotions.push(e) }
+          })
+          return {
+            name: def.name,
+            timeRange: def.timeRange,
+            emotions: uniqueEmotions,
+            count: periodRecords.length,
+          }
+        })
+      }
+
       that.setData({
         hasData: true,
         emotionStats: emotionStats,
         subStats: subStats,
         dailyTrends: dailyTrends,
+        timePeriods: timePeriods,
         heatmapData: heatmapData,
         mostCommon: mostCommon,
         stabilityScore: stabilityScore,
