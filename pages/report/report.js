@@ -11,6 +11,12 @@ Page({
     rangeLabel: '近3天',
     rangeDays: 3,
 
+    // 自定义时间范围
+    isCustomRange: false,
+    showCustomPicker: false,
+    customStartDate: '',
+    customEndDate: '',
+
     // 数据
     hasData: false,
     emotionStats: [],
@@ -87,11 +93,87 @@ Page({
     })
   },
 
+  // 自定义范围时，用自定义的起止日期而非相对计算
+  _getActualDateRange: function () {
+    if (this.data.isCustomRange && this.data.customStartDate && this.data.customEndDate) {
+      return {
+        start: new Date(this.data.customStartDate + 'T00:00:00'),
+        end: new Date(this.data.customEndDate + 'T23:59:59.999'),
+      }
+    }
+    var end = new Date()
+    var start = new Date()
+    start.setDate(start.getDate() - (this.data.rangeDays - 1))
+    return { start: start, end: end }
+  },
+
   switchRange(e) {
     var days = Number(e.currentTarget.dataset.days)
     if (days === this.data.rangeDays) return
+    this.setData({ isCustomRange: false })
     this._applyRange(days)
     this.setData({ aiReport: '', aiReportLoading: false })
+    if (this.data.userId) this.loadReportData()
+  },
+
+  // ─── 自定义时间范围 ───
+  showCustomDatePicker: function () {
+    var now = new Date()
+    var start = new Date()
+    start.setDate(start.getDate() - 6) // 默认近7天
+    this.setData({
+      showCustomPicker: true,
+      customStartDate: util.formatDate(start, 'YYYY-MM-DD'),
+      customEndDate: util.formatDate(now, 'YYYY-MM-DD'),
+    })
+  },
+
+  hideCustomDatePicker: function () {
+    this.setData({ showCustomPicker: false })
+  },
+
+  onCustomStartChange: function (e) {
+    this.setData({ customStartDate: e.detail.value })
+  },
+
+  onCustomEndChange: function (e) {
+    this.setData({ customEndDate: e.detail.value })
+  },
+
+  confirmCustomRange: function () {
+    var startDate = this.data.customStartDate
+    var endDate = this.data.customEndDate
+    if (!startDate || !endDate) {
+      wx.showToast({ title: '请选择完整时间范围', icon: 'none' })
+      return
+    }
+    if (startDate > endDate) {
+      wx.showToast({ title: '开始日期不能晚于结束日期', icon: 'none' })
+      return
+    }
+
+    // 计算天数差
+    var start = new Date(startDate)
+    var end = new Date(endDate)
+    var diffMs = end.getTime() - start.getTime()
+    var diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24)) + 1
+
+    if (diffDays > 365) {
+      wx.showToast({ title: '最多选择365天', icon: 'none' })
+      return
+    }
+
+    this.setData({
+      showCustomPicker: false,
+      isCustomRange: true,
+      rangeDays: diffDays,
+      rangeLabel: '自定义',
+      rangeStart: util.formatDate(start, 'MM月DD日'),
+      rangeEnd: util.formatDate(end, 'MM月DD日'),
+      aiReport: '',
+      aiReportLoading: false,
+    })
+
     if (this.data.userId) this.loadReportData()
   },
 
@@ -102,9 +184,9 @@ Page({
       var userId = that.data.userId
       if (!userId) return
 
-      var end = new Date()
-      var start = new Date()
-      start.setDate(start.getDate() - (that.data.rangeDays - 1))
+      var dateRange = that._getActualDateRange()
+      var start = dateRange.start
+      var end = dateRange.end
       start.setHours(0, 0, 0, 0)
       end.setHours(23, 59, 59, 999)
 

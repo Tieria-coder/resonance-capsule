@@ -37,6 +37,7 @@ const iconConfig = {
   'tab-calendar-selected': { viewBox: 24, logical: 24 },
   'tab-report-selected':   { viewBox: 24, logical: 24 },
   'tab-profile-selected':  { viewBox: 24, logical: 24 },
+  'tab-ai-diary-selected': { viewBox: 24, logical: 24 },
 };
 
 const sourceDir = path.join(__dirname, 'batch1-ui');

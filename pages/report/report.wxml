@@ -11,6 +11,34 @@
     <view class="range-tab {{rangeDays === 1 ? 'active' : ''}}" bindtap="switchRange" data-days="1">日报</view>
     <view class="range-tab {{rangeDays === 7 ? 'active' : ''}}" bindtap="switchRange" data-days="7">周报</view>
     <view class="range-tab {{rangeDays === 30 ? 'active' : ''}}" bindtap="switchRange" data-days="30">月报</view>
+    <view class="range-tab {{isCustomRange ? 'active' : ''}}" bindtap="showCustomDatePicker">自定义</view>
+  </view>
+
+  <!-- 自定义时间范围选择器 -->
+  <view wx:if="{{showCustomPicker}}" class="custom-date-picker">
+    <view class="picker-mask" bindtap="hideCustomDatePicker"></view>
+    <view class="picker-panel">
+      <view class="picker-header">
+        <view class="picker-cancel" bindtap="hideCustomDatePicker">取消</view>
+        <view class="picker-title">选择时间范围</view>
+        <view class="picker-confirm" bindtap="confirmCustomRange">确定</view>
+      </view>
+      <view class="picker-body">
+        <view class="picker-field">
+          <text class="field-label">开始</text>
+          <picker mode="date" value="{{customStartDate}}" bindchange="onCustomStartChange">
+            <view class="field-value">{{customStartDate || '请选择'}}</view>
+          </picker>
+        </view>
+        <text class="picker-separator">至</text>
+        <view class="picker-field">
+          <text class="field-label">结束</text>
+          <picker mode="date" value="{{customEndDate}}" bindchange="onCustomEndChange">
+            <view class="field-value">{{customEndDate || '请选择'}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
   </view>
 
   <!-- 有数据 -->
