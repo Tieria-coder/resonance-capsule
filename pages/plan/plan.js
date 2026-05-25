@@ -11,12 +11,14 @@ Page({
     currentPlanId: null,
     currentPlanName: '',
     reminderOptions: [
-      { key: 'morning', label: '早上 8:00', time: '08:00' },
-      { key: 'noon', label: '中午 12:00', time: '12:00' },
-      { key: 'afternoon', label: '下午 18:00', time: '18:00' },
-      { key: 'evening', label: '晚上 21:00', time: '21:00' },
+      { key: 'dawn',     label: '早晨 7:00', time: '07:00' },
+      { key: 'forenoon', label: '上午 10:00', time: '10:00' },
+      { key: 'noon',     label: '中午 12:00', time: '12:00' },
+      { key: 'afternoon',label: '下午 15:00', time: '15:00' },
+      { key: 'evening',  label: '晚上 19:00', time: '19:00' },
+      { key: 'night',    label: '深夜 22:00', time: '22:00' },
     ],
-    selectedReminders: ['evening'],
+    selectedReminders: ['evening', 'night'],
     openid: '',
     userId: '',
   },
@@ -113,7 +115,7 @@ Page({
       showReminderPicker: true,
       currentPlanId: templateId,
       currentPlanName: planName,
-      selectedReminders: ['evening'],
+      selectedReminders: ['evening', 'night'],
     });
   },
 
