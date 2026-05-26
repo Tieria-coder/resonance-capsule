@@ -307,7 +307,7 @@
 .record-btn {
   flex: 1;
   height: 200rpx;
-  background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(240,240,240,0.6));
+  background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(245,230,218,0.6));
   border-radius: 24rpx;
   display: flex;
   flex-direction: column;
@@ -327,7 +327,7 @@
 }
 
 .record-btn.selected {
-  background: linear-gradient(145deg, #f8f8f8, #eeeeee);
+  background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(248,238,228,0.7));
 }
 
 .record-icon {
