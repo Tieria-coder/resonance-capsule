@@ -103,7 +103,7 @@
 
 .record-icon, .diary-icon { width: 64rpx; height: 64rpx; }
 .streak-icon { width: 56rpx; height: 56rpx; }
-.empty-icon { width: 140rpx; height: 140rpx; }
+.empty-icon { width: 140rpx; height: 140rpx; margin: 0 auto; }
 .ai-bubble-icon { width: 40rpx; height: 40rpx; }
 .msg-avatar { width: 60rpx; height: 60rpx; }
 .record-chat-btn image { display: inline-block; vertical-align: middle; margin-right: 6rpx; }
@@ -589,7 +589,9 @@
 }
 
 .empty-icon {
-  font-size: 120rpx;
+  width: 140rpx;
+  height: 140rpx;
+  margin: 0 auto;
   margin-bottom: 20rpx;
   opacity: 0.4;
 }
