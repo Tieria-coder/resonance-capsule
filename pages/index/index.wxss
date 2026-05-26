@@ -1443,3 +1443,67 @@
 /* 内联小图标 */
 .icon-xs-inline { width: 28rpx; height: 28rpx; display: inline-block; vertical-align: middle; margin-right: 4rpx; }
 .chat-close image { width: 36rpx; height: 36rpx; }
+
+/* ═══ 头部日期 ═══ */
+.header-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.header-date {
+  font-size: 28rpx;
+  color: #1a1a1a;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+}
+
+.header-greeting {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+/* ═══ 按钮区 ═══ */
+.btn-area {
+  display: flex;
+  gap: 24rpx;
+  padding: 40rpx 30rpx 40rpx;
+  justify-content: center;
+}
+
+.btn-record, .btn-diary {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx 0;
+  border-radius: 24rpx;
+  border: 1rpx solid rgba(255,255,255,0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06), inset 0 1rpx 0 rgba(255,255,255,0.6);
+  transition: transform 0.2s ease;
+}
+
+.btn-record:active, .btn-diary:active { transform: scale(0.96); }
+
+.btn-record {
+  background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(240,240,240,0.6));
+}
+
+.btn-diary {
+  background: linear-gradient(145deg, rgba(123,143,186,0.18), rgba(60,60,60,0.55));
+  border-color: rgba(255,255,255,0.12);
+}
+
+.btn-label {
+  font-size: 26rpx;
+  color: #1a1a1a;
+  margin-top: 16rpx;
+  font-weight: 500;
+}
+
+.btn-diary .btn-label { color: #f5f5f5; }

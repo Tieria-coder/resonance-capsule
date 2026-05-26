@@ -1,4 +1,4 @@
-// pages/index/index.js - ES5 compatible
+﻿// pages/index/index.js - ES5 compatible
 var app = getApp()
 var util = require('../../utils/util')
 var db = require('../../utils/db')
@@ -65,7 +65,11 @@ Page({
 
     // ═══ Toast ═══
     showToast: false,
-    toastText: ''
+    toastText: '',
+
+    // ═══ 头部日期 ═══
+    headerDate: '',
+    greeting: ''
   },
 
   onLoad: function (opts) {
@@ -91,6 +95,7 @@ Page({
 
     this._initUser()
     this._initVoiceRecorder()
+    this._updateHeaderDate()
     // 初始化所有情绪大类（用于初始4+4布局）
     var all = util.EMOTION_CATEGORIES
     this.setData({
@@ -102,6 +107,7 @@ Page({
 
   onShow: function () {
     var that = this
+    that._updateHeaderDate()
     that.loadPoetry()
     if (that.data.openid) {
       that._loadTodayRecords()
@@ -118,6 +124,26 @@ Page({
       clearTimeout(this._hideAiTimer)
       this._hideAiTimer = null
     }
+  },
+
+  // ─── 更新头部日期和问候 ───
+  _updateHeaderDate: function () {
+    var now = new Date()
+    var weekDays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+    var month = now.getMonth() + 1
+    var day = now.getDate()
+    var wday = weekDays[now.getDay()]
+    var headerDate = month + '月' + day + '日 · ' + wday
+    var hour = now.getHours()
+    var greeting = ''
+    if (hour < 6) greeting = '夜深了'
+    else if (hour < 9) greeting = '早安'
+    else if (hour < 12) greeting = '上午好'
+    else if (hour < 14) greeting = '午安'
+    else if (hour < 18) greeting = '下午好'
+    else if (hour < 22) greeting = '晚上好'
+    else greeting = '夜深了'
+    this.setData({ headerDate: headerDate, greeting: greeting })
   },
 
   // ─── 初始化用户 ───

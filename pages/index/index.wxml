@@ -3,8 +3,9 @@
   <!-- 顶部标题 -->
   <view class="header">
     <view class="header-left">
+      <view class="header-date">{{headerDate}}</view>
+      <view class="header-greeting" wx:if="{{greeting}}">{{greeting}}</view>
     </view>
-    <view class="title"></view>
     <view class="header-actions">
       <!-- 右侧图标已移除 -->
     </view>
