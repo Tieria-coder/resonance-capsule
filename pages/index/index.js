@@ -840,29 +840,9 @@ Page({
         return that._proceedSave(aiResponse, recordTime, period, emotionKeys, tempText, userId, openid)
       }).catch(function (checkErr) {
         wx.hideLoading()
-        console.error('AI检查失败:', checkErr)
-        return new Promise(function (resolve) {
-          wx.showModal({
-            title: 'AI 检查失败',
-            content: '情绪匹配检查失败（可能超时或网络问题）。\n\n建议：取消后重新选择情绪或修改文字。',
-            confirmText: '仍要保存',
-            confirmColor: '#e64340',
-            cancelText: '取消',
-            cancelColor: '#576b95',
-            success: function (modalRes) {
-              if (modalRes.confirm) {
-                resolve(that._proceedSave(aiResponse, recordTime, period, emotionKeys, tempText, userId, openid))
-              } else {
-                that.setData({ aiLoading: false })
-                resolve(null)
-              }
-            },
-            fail: function () {
-              that.setData({ aiLoading: false })
-              resolve(null)
-            }
-          })
-        })
+        console.warn('AI检查失败，直接保存:', checkErr)
+        // AI 检查失败不阻断用户，直接保存记录
+        return that._proceedSave(aiResponse, recordTime, period, emotionKeys, tempText, userId, openid)
       })
     }).catch(function (err) {
       console.error('保存记录失败:', err)

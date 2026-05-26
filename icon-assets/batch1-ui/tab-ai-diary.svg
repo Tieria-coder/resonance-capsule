@@ -8,7 +8,5 @@
   <line x1="8" y1="12" x2="16" y2="12" stroke="#7B8FBA" stroke-width="1" stroke-linecap="round"/>
   <line x1="8" y1="15" x2="13" y2="15" stroke="#7B8FBA" stroke-width="1" stroke-linecap="round"/>
   <!-- AI 小星星/闪光（右上角） -->
-  <path d="M17.5 2 L18.2 3.8 L20 4.5 L18.2 5.2 L17.5 7 L16.8 5.2 L15 4.5 L16.8 3.8 Z" fill="#A8B5D4">
-    <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
-  </path>
+  <path d="M17.5 2 L18.2 3.8 L20 4.5 L18.2 5.2 L17.5 7 L16.8 5.2 L15 4.5 L16.8 3.8 Z" fill="#A8B5D4"/>
 </svg>

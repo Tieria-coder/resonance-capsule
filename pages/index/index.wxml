@@ -47,7 +47,7 @@
       </view>
       <!-- AI 日记按钮 -->
       <view class="diary-btn" bindtap="showDiaryPicker">
-        <image class="diary-icon icon-md icon-anim-ai-antenna" src="/images/icons/ai-diary@2x.png" mode="aspectFit"/>
+        <image class="diary-icon icon-md" src="/images/icons/ai-diary@2x.png" mode="aspectFit"/>
         <view class="diary-text">AI日记</view>
       </view>
     </view>
